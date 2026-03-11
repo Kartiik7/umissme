@@ -1,0 +1,190 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ─── Floating hearts ─── */
+.heartsContainer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floatingHeart {
+  position: absolute;
+  bottom: -40px;
+  animation: floatHeart linear infinite;
+  opacity: 0;
+  filter: drop-shadow(0 2px 8px rgba(255, 77, 109, 0.3));
+}
+
+/* ─── Content ─── */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-5) 1rem;
+  gap: 0.6rem;
+  animation: fadeInUp 600ms ease;
+}
+
+.heartPulse {
+  font-size: 3rem;
+  animation: heartPulse 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 4px 20px rgba(255, 77, 109, 0.4));
+  margin-bottom: 0.3rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 12vw, 7.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: var(--gradient-hero);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 30px rgba(255, 77, 109, 0.2));
+}
+
+.tagline {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  color: var(--color-muted);
+  max-width: 440px;
+  line-height: 1.7;
+  margin-top: 0.2rem;
+}
+
+.tagline strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: var(--space-3);
+}
+
+.primary,
+.secondary {
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 220ms cubic-bezier(.17,.67,.35,1.4), box-shadow 220ms ease;
+}
+
+.primary {
+  background: var(--gradient-btn);
+  background-size: 200% auto;
+  color: #fff;
+  box-shadow: 0 10px 30px var(--color-primary-glow);
+  animation: shimmerBtn 3s ease infinite;
+}
+
+.primary:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 16px 40px var(--color-primary-glow);
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  color: var(--color-secondary);
+  border: 1.5px solid rgba(124, 92, 252, 0.18);
+  box-shadow: 0 6px 20px rgba(124, 92, 252, 0.08);
+}
+
+.secondary:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 32px rgba(124, 92, 252, 0.15);
+  border-color: rgba(124, 92, 252, 0.3);
+}
+
+.continueBtn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  margin-top: 0.3rem;
+  transition: all 200ms ease;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 77, 109, 0.3);
+  text-underline-offset: 4px;
+}
+
+.continueBtn:hover {
+  text-decoration-color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.subtext {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  margin-top: var(--space-3);
+  opacity: 0.8;
+}
+
+.sessionResume {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: var(--space-3);
+  width: min(100%, 320px);
+}
+
+.sessionResume .primary,
+.sessionResume .secondary {
+  width: 100%;
+  text-align: center;
+}
+
+.welcomeBack {
+  font-size: 1rem;
+  color: var(--color-muted);
+}
+
+.welcomeBack strong {
+  color: var(--color-primary);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .heartPulse {
+    font-size: 2.4rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: min(100%, 320px);
+  }
+
+  .primary, .secondary {
+    width: 100%;
+    text-align: center;
+  }
+}

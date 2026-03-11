@@ -1,0 +1,12 @@
+@import './styles/variables.css';
+@import './styles/layout.css';
+@import './styles/buttons.css';
+@import './styles/forms.css';
+@import './styles/chat.css';
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}

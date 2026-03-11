@@ -1,0 +1,119 @@
+.container {
+  width: min(calc(100% - 2rem), var(--container-max));
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  padding: var(--space-5) 0;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.8rem, 4vw, 2.8rem);
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  border: 1px solid rgba(255, 77, 109, 0.1);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: fadeInUp 400ms ease;
+}
+
+.emoji {
+  font-size: 2.8rem;
+  animation: heartPulse 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 4px 16px rgba(255, 77, 109, 0.35));
+  margin-bottom: 0.4rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 800;
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.subtitle strong {
+  color: var(--color-primary);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: var(--space-4);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(255, 77, 109, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 220ms ease;
+}
+
+.option:hover {
+  border-color: rgba(255, 77, 109, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 77, 109, 0.08);
+}
+
+.active {
+  border-color: var(--color-primary);
+  background: rgba(255, 77, 109, 0.06);
+  box-shadow: 0 0 0 4px rgba(255, 77, 109, 0.08), 0 4px 20px rgba(255, 77, 109, 0.1);
+}
+
+.optionEmoji {
+  font-size: 1.3rem;
+}
+
+.continueBtn {
+  width: 100%;
+  background: var(--gradient-btn);
+  background-size: 200% auto;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.88rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 10px 30px var(--color-primary-glow);
+  transition: transform 220ms cubic-bezier(.17,.67,.35,1.4), box-shadow 220ms ease, opacity 180ms ease;
+  animation: shimmerBtn 3s ease infinite;
+}
+
+.continueBtn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 14px 36px var(--color-primary-glow);
+}
+
+.continueBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
+}
