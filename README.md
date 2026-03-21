@@ -97,6 +97,26 @@ npm run dev
 
 Open http://localhost:5173
 
+## Deploy Frontend To Netlify
+
+This repository is a monorepo, so Netlify must build from the `client` folder.
+
+- `netlify.toml` at repo root is configured with:
+    - base: `client`
+    - build command: `npm run build`
+    - publish directory: `dist`
+- SPA routing fallback is configured via both:
+    - `netlify.toml` redirects
+    - `client/public/_redirects`
+
+If your API is hosted separately, set this Netlify environment variable:
+
+```env
+VITE_API_URL=https://your-backend-domain/api
+```
+
+Without `VITE_API_URL`, frontend requests default to `/api` on the same host.
+
 ## Core API Endpoints
 
 | Method | Path | Description |
