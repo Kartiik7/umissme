@@ -1,17 +1,18 @@
 .nav {
-  width: min(calc(100% - 2rem), var(--container-max));
-  margin: 0.8rem auto 0;
+  width: min(calc(100% - 1.1rem), var(--container-max));
+  margin: 0.7rem auto 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
-  padding: 0.7rem 0.8rem 0.7rem 1.1rem;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(20px) saturate(1.8);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  border: 1px solid rgba(255, 77, 109, 0.08);
-  border-radius: 999px;
-  box-shadow: 0 4px 24px rgba(255, 77, 109, 0.06);
+  gap: 1rem;
+  padding: 0.66rem 0.7rem 0.66rem 0.9rem;
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 232, 0.94));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(70, 79, 97, 0.16);
+  border-radius: 22px;
+  box-shadow: 0 16px 34px rgba(29, 36, 58, 0.12);
   z-index: 100;
 }
 
@@ -19,73 +20,69 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 800;
-  background: var(--gradient-hero);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.heartIcon {
-  font-size: 1.1rem;
-  -webkit-text-fill-color: initial;
-  animation: heartPulse 2s ease-in-out infinite;
+  text-decoration: none;
 }
 
 .links {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.36rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(70, 79, 97, 0.13);
+  border-radius: 14px;
+  padding: 0.25rem;
 }
 
 .link {
-  color: var(--color-text);
-  font-size: 0.92rem;
-  font-weight: 600;
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
+  color: #27303e;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 0.5rem 0.82rem;
   transition: all 220ms ease;
 }
 
 .link:hover {
-  background: rgba(255, 77, 109, 0.06);
-  color: var(--color-primary);
+  background: rgba(222, 95, 50, 0.14);
+  color: #7d2f17;
   transform: translateY(-1px);
 }
 
 .joinBtn {
-  background: var(--gradient-btn);
-  background-size: 200% auto;
+  background: linear-gradient(135deg, #f28a4a, #de5f32);
   color: #fff;
-  font-size: 0.92rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  border-radius: 999px;
-  padding: 0.55rem 1.15rem;
-  box-shadow: 0 6px 20px var(--color-primary-glow);
-  transition: transform 220ms cubic-bezier(.17,.67,.35,1.4), box-shadow 220ms ease;
-  animation: shimmerBtn 3s ease infinite;
+  border-radius: 11px;
+  padding: 0.56rem 0.92rem;
+  box-shadow: 0 10px 20px rgba(222, 95, 50, 0.3);
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
 .joinBtn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 28px var(--color-primary-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(222, 95, 50, 0.34);
 }
 
 @media (max-width: 640px) {
   .nav {
-    border-radius: 22px;
-    padding: 0.6rem 0.7rem 0.6rem 0.9rem;
+    border-radius: 16px;
+    padding: 0.54rem;
+    gap: 0.58rem;
   }
 
   .link {
-    padding-inline: 0.7rem;
-    font-size: 0.85rem;
+    padding-inline: 0.58rem;
+    font-size: 0.8rem;
   }
 
   .joinBtn {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.85rem;
+    padding: 0.48rem 0.68rem;
+    font-size: 0.76rem;
+  }
+
+  .links {
+    gap: 0.2rem;
+    padding: 0.16rem;
   }
 }

@@ -19,6 +19,18 @@ const messageSchema = new mongoose.Schema(
       trim: true,
       maxlength: [500, 'Message must be 500 characters or fewer'],
     },
+    sent: {
+      type: Boolean,
+      default: true,
+    },
+    delivered: {
+      type: Boolean,
+      default: false,
+    },
+    deliveredAt: {
+      type: Date,
+      default: null,
+    },
     seen: {
       type: Boolean,
       default: false,
@@ -26,6 +38,10 @@ const messageSchema = new mongoose.Schema(
     seenAt: {
       type: Date,
       default: null,
+    },
+    expiresAt: {
+      type: Date,
+      index: { expires: 0 },
     },
   },
   { timestamps: true }

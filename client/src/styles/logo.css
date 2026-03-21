@@ -1,0 +1,36 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  transition: transform 300ms ease;
+  gap: 0.2em;
+}
+
+.logo:hover {
+  transform: scale(1.03);
+}
+
+.logo--sm {
+  font-size: 1.18rem;
+}
+
+.logo--lg {
+  font-size: clamp(2.3rem, 7vw, 4rem);
+}
+
+.logo__ping {
+  color: var(--color-primary-strong);
+  background: linear-gradient(130deg, var(--color-primary-strong) 0%, var(--color-primary) 48%, #ff9e72 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo__let {
+  color: var(--color-secondary-strong);
+}

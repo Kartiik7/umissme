@@ -23,13 +23,13 @@
 .field-label {
   font-size: 0.9rem;
   color: var(--color-muted);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .field-input {
   width: 100%;
-  border: 1.5px solid rgba(255, 77, 109, 0.1);
-  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(200, 69, 54, 0.2);
+  background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(8px);
   color: var(--color-text);
   border-radius: var(--radius-sm);
@@ -42,13 +42,13 @@
 .field-input:focus {
   border-color: var(--color-primary);
   background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0 0 4px rgba(255, 77, 109, 0.1), 0 4px 16px rgba(255, 77, 109, 0.08);
+  box-shadow: 0 0 0 4px rgba(255, 111, 97, 0.14), 0 4px 16px rgba(255, 111, 97, 0.12);
 }
 
 .form-error {
-  background: linear-gradient(135deg, #fff1f2, #ffe4e6);
-  border: 1px solid #fda4af;
-  color: #be123c;
+  background: linear-gradient(135deg, #fff3f2, #ffe4e1);
+  border: 1px solid #f8b6ab;
+  color: #9f2f22;
   border-radius: var(--radius-sm);
   padding: 0.7rem 0.85rem;
   font-size: 0.92rem;

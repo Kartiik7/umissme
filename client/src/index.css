@@ -1,12 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@400;500;600;700;800&display=swap');
+
 @import './styles/variables.css';
 @import './styles/layout.css';
 @import './styles/buttons.css';
 @import './styles/forms.css';
 @import './styles/chat.css';
+@import './styles/logo.css';
 
 h1,
 h2,
 h3,
 p {
   margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
 }

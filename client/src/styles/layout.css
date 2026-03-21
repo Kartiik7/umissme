@@ -11,45 +11,50 @@ body,
 body {
   margin: 0;
   color: var(--color-text);
-  background: var(--color-bg);
+  background:
+    radial-gradient(circle at 11% 0%, rgba(242, 138, 74, 0.31), transparent 32%),
+    radial-gradient(circle at 88% 8%, rgba(45, 116, 128, 0.24), transparent 36%),
+    radial-gradient(circle at 52% 95%, rgba(255, 224, 179, 0.4), transparent 35%),
+    repeating-linear-gradient(135deg, rgba(25, 37, 45, 0.02) 0, rgba(25, 37, 45, 0.02) 1px, transparent 1px, transparent 14px),
+    var(--color-bg);
   font-family: var(--font-main);
   overflow-x: hidden;
+  line-height: 1.5;
 }
 
-/* animated background blobs */
 body::before,
 body::after {
   content: '';
   position: fixed;
-  border-radius: 50%;
+  border-radius: 61% 39% 47% 53% / 35% 58% 42% 65%;
   z-index: -1;
-  filter: blur(80px);
-  opacity: 0.5;
-  animation: blobFloat 14s ease-in-out infinite;
+  filter: blur(88px);
+  opacity: 0.42;
+  animation: blobFloat 20s ease-in-out infinite;
 }
 
 body::before {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, #fecdd3 0%, transparent 70%);
-  top: -120px;
-  left: -80px;
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(242, 138, 74, 0.56) 0%, transparent 74%);
+  top: -180px;
+  left: -140px;
 }
 
 body::after {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, #e9d5ff 0%, transparent 70%);
-  bottom: -100px;
-  right: -60px;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(49, 126, 138, 0.42) 0%, transparent 72%);
+  bottom: -160px;
+  right: -130px;
   animation-delay: -7s;
   animation-direction: reverse;
 }
 
 @keyframes blobFloat {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(40px, -30px) scale(1.05); }
-  66% { transform: translate(-20px, 20px) scale(0.96); }
+  33% { transform: translate(36px, -26px) scale(1.04); }
+  66% { transform: translate(-14px, 18px) scale(0.97); }
 }
 
 a {
@@ -61,10 +66,19 @@ a {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
+  padding-bottom: 1rem;
+}
+
+.app-shell-chat {
+  height: 100dvh;
+  min-height: 100dvh;
+  grid-template-rows: 1fr;
+  padding-bottom: 0;
+  overflow: hidden;
 }
 
 .page-wrap {
-  width: min(calc(100% - 2rem), var(--container-max));
+  width: min(calc(100% - 1.5rem), var(--container-max));
   margin-inline: auto;
 }
 
@@ -79,9 +93,15 @@ a {
 /* Glassmorphism card */
 .card {
   background: var(--gradient-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 640px) {
+  .page-wrap {
+    width: min(calc(100% - 0.9rem), var(--container-max));
+  }
 }

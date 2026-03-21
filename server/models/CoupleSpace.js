@@ -11,22 +11,37 @@ const coupleSpaceSchema = new mongoose.Schema(
       minlength: [2, 'Space name must be at least 2 characters'],
       maxlength: [60, 'Space name must be 60 characters or fewer'],
     },
-    partnerOneName: {
+    friendOneName: {
       type: String,
-      required: [true, 'Partner one name is required'],
+      required: [true, 'Friend one name is required'],
       trim: true,
-      maxlength: [50, 'Name must be 50 characters or fewer'],
+      maxlength: [50, 'Friend one name must be 50 characters or fewer'],
     },
-    partnerTwoName: {
+    friendTwoName: {
       type: String,
-      required: [true, 'Partner two name is required'],
+      required: [true, 'Friend two name is required'],
       trim: true,
-      maxlength: [50, 'Name must be 50 characters or fewer'],
+      maxlength: [50, 'Friend two name must be 50 characters or fewer'],
     },
     accessCode: {
       type: String,
       required: [true, 'Access code is required'],
-      minlength: [4, 'Access code must be at least 4 characters'],
+      trim: true,
+      minlength: [20, 'Stored access code hash is invalid'],
+      maxlength: [120, 'Stored access code hash is invalid'],
+    },
+    retentionHours: {
+      type: Number,
+      default: 168,
+      enum: [42, 72, 168, 240],
+    },
+    friendOneLastSeenAt: {
+      type: Date,
+      default: null,
+    },
+    friendTwoLastSeenAt: {
+      type: Date,
+      default: null,
     },
   },
   { timestamps: true }

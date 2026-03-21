@@ -1,34 +1,33 @@
 :root {
-  /* ─── Core palette ─── */
-  --color-primary: #ff4d6d;
-  --color-primary-glow: rgba(255, 77, 109, 0.35);
-  --color-secondary: #7c5cfc;
-  --color-accent: #ff85a1;
-  --color-bg: #fdf2f8;
-  --color-surface: rgba(255, 255, 255, 0.82);
+  --color-primary: #de5f32;
+  --color-primary-strong: #7d2f17;
+  --color-secondary: #1d5964;
+  --color-secondary-strong: #103842;
+  --color-success: #257a58;
+  --color-memory: #bc7d21;
+  --color-system: #3448a5;
+  --color-accent: #ffe0b3;
+  --color-bg: #fcf7f0;
+  --color-surface: rgba(255, 255, 255, 0.95);
   --color-surface-solid: #ffffff;
-  --color-surface-muted: #fce7f3;
-  --color-text: #1e1b3a;
-  --color-muted: #8b7fa8;
-  --color-border: rgba(255, 77, 109, 0.12);
+  --color-surface-muted: #fef1e2;
+  --color-text: #171a24;
+  --color-muted: #5f6775;
+  --color-border: rgba(63, 72, 91, 0.2);
+  --color-primary-glow: rgba(222, 95, 50, 0.32);
 
-  /* ─── Chat bubbles ─── */
-  --bubble-user: linear-gradient(135deg, #ff4d6d, #ff85a1);
-  --bubble-partner: linear-gradient(135deg, #f3e8ff, #ede9fe);
+  --gradient-hero: linear-gradient(128deg, #ffe5c7 0%, #ffd6bc 34%, #dff1f4 100%);
+  --gradient-btn: linear-gradient(135deg, #f28a4a, #de5f32);
+  --gradient-btn-alt: linear-gradient(135deg, #1d5964, #2d7480);
+  --gradient-glass: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(255, 250, 244, 0.92));
 
-  /* ─── Gradients ─── */
-  --gradient-hero: linear-gradient(135deg, #ff4d6d 0%, #ff85a1 40%, #c084fc 100%);
-  --gradient-btn: linear-gradient(135deg, #ff4d6d, #ff85a1, #ff4d6d);
-  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
-
-  /* ─── Spacing & shape ─── */
-  --radius-sm: 14px;
-  --radius-md: 20px;
-  --radius-lg: 28px;
-  --radius-xl: 36px;
-  --shadow-soft: 0 8px 32px rgba(255, 77, 109, 0.08);
-  --shadow-card: 0 20px 60px rgba(255, 77, 109, 0.1), 0 0 0 1px rgba(255, 77, 109, 0.06);
-  --shadow-glow: 0 0 40px rgba(255, 77, 109, 0.2), 0 0 80px rgba(192, 132, 252, 0.1);
+  --radius-sm: 11px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 34px;
+  --shadow-soft: 0 10px 26px rgba(35, 36, 48, 0.1);
+  --shadow-card: 0 24px 56px rgba(23, 32, 48, 0.14), 0 0 0 1px rgba(63, 72, 91, 0.09);
+  --shadow-glow: 0 0 50px rgba(222, 95, 50, 0.2);
 
   --space-1: 0.5rem;
   --space-2: 0.75rem;
@@ -37,7 +36,7 @@
   --space-5: 2rem;
   --space-6: 3rem;
 
-  --container-max: 900px;
-  --font-main: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Outfit", "Inter", system-ui, sans-serif;
+  --container-max: 1160px;
+  --font-main: "Sora", "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Sora", sans-serif;
 }

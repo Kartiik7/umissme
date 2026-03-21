@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createSpace } from '../services/api';
 import { saveSpaceSession } from '../services/session';
@@ -8,25 +8,45 @@ function CreateSpacePage() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     spaceName: '',
-    partnerOneName: '',
-    partnerTwoName: '',
+    friendOneName: '',
+    friendTwoName: '',
     accessCode: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) =>
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  useEffect(() => {
+    document.title = 'Create Space - Pinglet';
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const nextValue =
+      name === 'accessCode'
+        ? value.replace(/\D/g, '').slice(0, 6)
+        : value;
+
+    setForm((prev) => ({ ...prev, [name]: nextValue }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!/^\d{6}$/.test(form.accessCode)) {
+      setError('Access code must be exactly 6 digits.');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const space = await createSpace(form);
+      const space = await createSpace({
+        ...form,
+        spaceName: form.spaceName.trim().replace(/\s+/g, ' '),
+      });
       saveSpaceSession(space);
-      navigate('/select-partner', { state: { space } });
+      navigate('/select-identity', { state: { space } });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -37,16 +57,16 @@ function CreateSpacePage() {
   return (
     <main className={styles.container}>
       <form className={styles.card} onSubmit={handleSubmit}>
-        <div className={styles.cardEmoji}>✨</div>
-        <h2>Create Your Space</h2>
-        <p className={styles.subtitle}>A cozy corner for you two 💕</p>
+        <div className={styles.cardEmoji}>+</div>
+        <h2>Create Space</h2>
+        <p className={styles.subtitle}>Create your private Pinglet space for two friends. Use a 6-digit access code.</p>
         {error && <p className={styles.error}>{error}</p>}
 
-        <label>🌟 Space Name</label>
+        <label>Space Name</label>
         <input
           type="text"
           name="spaceName"
-          placeholder="e.g. kartik-anya"
+          placeholder="e.g. weekend-plans"
           value={form.spaceName}
           onChange={handleChange}
           required
@@ -54,41 +74,45 @@ function CreateSpacePage() {
           maxLength={60}
         />
 
-        <label>👤 Partner One</label>
+        <label>Friend One Name</label>
         <input
           type="text"
-          name="partnerOneName"
-          placeholder="e.g. Kartik"
-          value={form.partnerOneName}
+          name="friendOneName"
+          placeholder="e.g. Alex"
+          value={form.friendOneName}
           onChange={handleChange}
           required
           maxLength={50}
         />
 
-        <label>👤 Partner Two</label>
+        <label>Friend Two Name</label>
         <input
           type="text"
-          name="partnerTwoName"
-          placeholder="e.g. Anya"
-          value={form.partnerTwoName}
+          name="friendTwoName"
+          placeholder="e.g. Sam"
+          value={form.friendTwoName}
           onChange={handleChange}
           required
           maxLength={50}
         />
 
-        <label>🔐 Secret Code</label>
+        <label>Access Code (6 digits)</label>
         <input
           type="password"
           name="accessCode"
-          placeholder="Something only you two know"
+          placeholder="e.g. 123456"
           value={form.accessCode}
           onChange={handleChange}
           required
-          minLength={4}
+          minLength={6}
+          maxLength={6}
+          inputMode="numeric"
+          pattern="[0-9]{6}"
+          title="Access code must be exactly 6 digits"
         />
 
         <button type="submit" disabled={loading}>
-          {loading ? '✨ Creating...' : '🚀 Create Space'}
+          {loading ? 'Creating...' : 'Create Space'}
         </button>
       </form>
     </main>

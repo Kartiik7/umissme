@@ -2,8 +2,9 @@
   border: none;
   border-radius: 999px;
   font: inherit;
-  font-weight: 700;
-  padding: 0.82rem 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  padding: 0.82rem 1.45rem;
   transition: transform 220ms cubic-bezier(.17,.67,.35,1.4), box-shadow 220ms ease, opacity 180ms ease;
   cursor: pointer;
   position: relative;
@@ -19,7 +20,7 @@
   color: #fff;
   background: var(--gradient-btn);
   background-size: 200% auto;
-  box-shadow: 0 8px 24px var(--color-primary-glow);
+  box-shadow: 0 10px 24px var(--color-primary-glow);
   animation: shimmerBtn 3s ease infinite;
 }
 
@@ -30,10 +31,10 @@
 }
 
 .btn-secondary {
-  color: var(--color-secondary);
+  color: var(--color-secondary-strong);
   background: var(--color-surface);
-  border: 1.5px solid rgba(124, 92, 252, 0.2);
-  box-shadow: 0 6px 20px rgba(124, 92, 252, 0.08);
+  border: 1.5px solid rgba(11, 110, 110, 0.26);
+  box-shadow: 0 6px 20px rgba(11, 110, 110, 0.12);
 }
 
 .btn:hover:not(:disabled) {
@@ -41,12 +42,12 @@
 }
 
 .btn-primary:hover:not(:disabled) {
-  box-shadow: 0 14px 36px var(--color-primary-glow);
+  box-shadow: 0 16px 36px var(--color-primary-glow);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  box-shadow: 0 12px 32px rgba(124, 92, 252, 0.16);
-  border-color: rgba(124, 92, 252, 0.35);
+  box-shadow: 0 12px 32px rgba(11, 110, 110, 0.2);
+  border-color: rgba(11, 110, 110, 0.45);
 }
 
 .btn:active:not(:disabled) {
