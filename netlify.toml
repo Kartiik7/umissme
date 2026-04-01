@@ -1,5 +1,5 @@
 [build]
-  base = "client"
+  base = "v3/client"
   command = "npm run build"
   publish = "dist"
 
