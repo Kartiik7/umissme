@@ -32,7 +32,7 @@ function buildAllowedOrigins() {
 
   // Always allow common local dev ports so websocket handshakes remain stable
   // when Vite falls back from 5173 to 5174.
-  const defaults = ['http://localhost:5173', 'http://localhost:5174'];
+  const defaults = ['http://localhost:5173', 'http://localhost:5174', 'https://pinglet.netlify.app'];
   return [...new Set([...fromEnv, ...defaults])];
 }
 
