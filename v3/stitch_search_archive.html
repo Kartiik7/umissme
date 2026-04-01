@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pinglet - Search &amp; Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-primary": "#c3c0ff",
+                        "outline": "#777587",
+                        "surface": "#f8f9ff",
+                        "surface-tint": "#4d44e3",
+                        "secondary-fixed": "#e9ddff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e1e2e8",
+                        "on-secondary-fixed": "#23005c",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#885500",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-surface-variant": "#464555",
+                        "on-primary-container": "#dad7ff",
+                        "inverse-on-surface": "#eff0f6",
+                        "background": "#f8f9ff",
+                        "inverse-surface": "#2e3135",
+                        "on-surface": "#191c20",
+                        "surface-container-high": "#e7e8ee",
+                        "secondary": "#6b38d4",
+                        "tertiary": "#684000",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f2f3f9",
+                        "surface-bright": "#f8f9ff",
+                        "primary": "#3525cd",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-container-highest": "#e1e2e8",
+                        "outline-variant": "#c7c4d8",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container": "#eceef3",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ffd4a4",
+                        "primary-fixed": "#e2dfff",
+                        "secondary-container": "#8455ef",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-background": "#191c20",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#0f0069",
+                        "primary-container": "#4f46e5",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d8dae0",
+                        "on-secondary-container": "#fffbff",
+                        "cyan-accent": "#00e5ff",
+                        "yellow-accent": "#ffea00"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .message-bubble-received {
+            border-bottom-left-radius: 0.25rem;
+        }
+        .message-bubble-sent {
+            border-bottom-right-radius: 0.25rem;
+        }
+        .thick-border {
+            border: 3px solid #191c20;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 py-4 backdrop-blur-xl bg-white/80 sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<span class="text-2xl font-black bg-gradient-to-br from-[#3525cd] to-[#4f46e5] bg-clip-text text-transparent">Pinglet</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-xl text-[#464555] hover:bg-[#f2f3f9]/50 transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="p-2 rounded-xl text-[#3525cd] font-bold hover:bg-[#f2f3f9]/50 transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+</button>
+</div>
+</header>
+<main class="max-w-2xl mx-auto px-6 pt-8 space-y-8">
+<!-- Search Section -->
+<section class="space-y-6">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-cyan-accent to-yellow-accent rounded-[2rem] blur opacity-25 group-focus-within:opacity-100 transition duration-1000 group-focus-within:duration-200"></div>
+<div class="relative flex items-center bg-surface-container-lowest thick-border rounded-[2rem] px-6 py-4 shadow-xl">
+<span class="material-symbols-outlined text-primary mr-4" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-headline font-bold text-lg text-on-surface placeholder-outline-variant" placeholder="Find a memory or message..." type="text"/>
+<span class="material-symbols-outlined text-outline-variant cursor-pointer hover:text-error transition-colors" data-icon="close">close</span>
+</div>
+</div>
+<!-- Recent Searches / Tags -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<h2 class="font-headline font-extrabold text-sm tracking-widest uppercase text-on-surface-variant">Recent Searches</h2>
+<button class="text-xs font-bold text-primary hover:bg-primary/5 px-3 py-1 rounded-full transition-all active:scale-95">Clear All</button>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="bg-cyan-accent/20 text-on-surface font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 border-2 border-cyan-accent/30 hover:border-cyan-accent transition-all cursor-pointer">
+<span>Beach trip 2023</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="history">history</span>
+</div>
+<div class="bg-yellow-accent/20 text-on-surface font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 border-2 border-yellow-accent/30 hover:border-yellow-accent transition-all cursor-pointer">
+<span>Secret recipe</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="history">history</span>
+</div>
+<div class="bg-surface-container-highest text-on-surface-variant font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 border-2 border-transparent hover:border-outline-variant transition-all cursor-pointer">
+<span>@alex_m</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="history">history</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Filters -->
+<nav class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="flex items-center gap-2 bg-primary text-white font-bold px-5 py-2.5 rounded-2xl shadow-lg shadow-primary/20 shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="all_inclusive">all_inclusive</span>
+<span>All Results</span>
+</button>
+<button class="flex items-center gap-2 bg-surface-container-lowest text-on-surface-variant font-semibold px-5 py-2.5 rounded-2xl hover:bg-surface-container-low transition-colors shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="chat_bubble">chat_bubble</span>
+<span>Messages</span>
+</button>
+<button class="flex items-center gap-2 bg-surface-container-lowest text-on-surface-variant font-semibold px-5 py-2.5 rounded-2xl hover:bg-surface-container-low transition-colors shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+<span>Memories</span>
+</button>
+<button class="flex items-center gap-2 bg-surface-container-lowest text-on-surface-variant font-semibold px-5 py-2.5 rounded-2xl hover:bg-surface-container-low transition-colors shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="bolt">bolt</span>
+<span>Activity</span>
+</button>
+</nav>
+<!-- Archived Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-3">
+<h2 class="font-headline font-black text-2xl text-on-surface">Archived Pings</h2>
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">12 Items</span>
+</div>
+<div class="space-y-4">
+<!-- Message Card 1 -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 flex gap-4 transition-all hover:translate-x-1 active:scale-[0.98] cursor-pointer">
+<div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-accent to-primary flex items-center justify-center text-white shrink-0">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div class="flex-1 min-w-0 space-y-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-on-surface truncate">Sarah Jenkins</h3>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Oct 12</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1">Don't forget to check out that new coffee place downtown. I heard the espresso is...</p>
+<div class="flex gap-2 pt-1">
+<span class="text-[10px] font-bold bg-surface-container-low text-primary px-2 py-0.5 rounded uppercase">Work</span>
+<span class="text-[10px] font-bold bg-surface-container-low text-primary px-2 py-0.5 rounded uppercase">Reference</span>
+</div>
+</div>
+</div>
+<!-- Message Card 2 (Memory Style) -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 space-y-4 border-l-8 border-yellow-accent transition-all hover:translate-x-1 active:scale-[0.98] cursor-pointer">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-yellow-accent" data-icon="star" data-weight="fill">star</span>
+<span class="font-headline font-extrabold text-sm uppercase tracking-wider text-on-surface">Weekend Cabin Trip</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Sep 28</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<img class="w-full h-24 object-cover rounded-2xl" data-alt="cozy wooden cabin in the middle of a foggy pine forest with warm light glowing from the windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1zoofHnWprqNtbxqKwUFPi8C-NYafLreRgHuQLKpcRnLw9AzAX-K_CtartZi1YHwKLsN9B5JSyGHM6WenTiYdoPogw81dYreTU6FwnaxuBJyDmJpIlVpr5xfVEOOoCS_Y4ip_yKS6q0NH--DobNaYT6-3_Yj2IAGktFDEZOF_LCh4h00w9zRZLI6JxOFO48YhkDnDv9IIHybR9SgwTxsZoAKlUr5GT87Rktf-OwTu_wdf2FHnuo4rHyZCUl_p_g2wWHjkOP0HxA"/>
+<img class="w-full h-24 object-cover rounded-2xl" data-alt="a group of friends laughing around a stone fire pit at night with marshmallows on sticks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm6IQ3AQt-UD1OtfoeLj6UFpxlyiYNPsLD4HgcxQ5hUDVqLJnHY5dGitp4yhd33sSU_3_0HKskZLp8Whi0_56KTdpGrlv-4mxZAhP8B99xMcfnyuWNSzSObM0IEpzZEyV_FsGrfjJlsvCJNkk0eolELTzxh1wrh8rhy1XmYDflnXualGdRzeUYrxFY1zotjdWVTWBF-hHjNZAIaLmNBrD_NJ65KO3to4NeZN97-XW9wmAtuSLHCb1E0qKnltMewBZWS4dtBxVKGw"/>
+</div>
+<p class="text-sm text-on-surface-variant">The best weekend ever. We need to do this every year. Archive for the memories!</p>
+</div>
+<!-- Message Card 3 -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 flex gap-4 transition-all hover:translate-x-1 active:scale-[0.98] cursor-pointer">
+<div class="w-12 h-12 rounded-2xl bg-surface-container-highest flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</div>
+<div class="flex-1 min-w-0 space-y-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-on-surface truncate">The Breakfast Club</h3>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Sep 15</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1">Leo: Who's bringing the orange juice this time? I brought the bagels last...</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Empty State Visual (Asymmetric Bento) -->
+<section class="pt-8 opacity-40 grayscale pointer-events-none">
+<div class="grid grid-cols-3 gap-4">
+<div class="col-span-2 h-32 bg-surface-container rounded-3xl"></div>
+<div class="h-32 bg-cyan-accent/10 rounded-3xl"></div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 backdrop-blur-2xl">
+<div class="flex flex-col items-center justify-center text-[#464555] px-5 py-2 hover:text-[#3525cd] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Messages</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#464555] px-5 py-2 hover:text-[#3525cd] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Memories</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#464555] px-5 py-2 hover:text-[#3525cd] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="favorite">favorite</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Vibe</span>
+</div>
+<!-- Active Tab: Settings (as it often houses Archive/Search history contexts) -->
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#3525cd] to-[#4f46e5] text-white rounded-2xl px-5 py-2 mb-1 shadow-lg shadow-indigo-500/20 scale-110 transition-transform duration-300 ease-out">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Settings</span>
+</div>
+</nav>
+</body></html>

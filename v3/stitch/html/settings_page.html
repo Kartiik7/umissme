@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pinglet Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#c3c0ff",
+              "outline": "#777587",
+              "surface": "#f8f9ff",
+              "surface-tint": "#4d44e3",
+              "secondary-fixed": "#e9ddff",
+              "on-error-container": "#93000a",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e1e2e8",
+              "on-secondary-fixed": "#23005c",
+              "on-error": "#ffffff",
+              "tertiary-container": "#885500",
+              "secondary-fixed-dim": "#d0bcff",
+              "on-surface-variant": "#464555",
+              "on-primary-container": "#dad7ff",
+              "inverse-on-surface": "#eff0f6",
+              "background": "#f8f9ff",
+              "inverse-surface": "#2e3135",
+              "on-surface": "#191c20",
+              "surface-container-high": "#e7e8ee",
+              "secondary": "#6b38d4",
+              "tertiary": "#684000",
+              "error": "#ba1a1a",
+              "surface-container-low": "#f2f3f9",
+              "surface-bright": "#f8f9ff",
+              "primary": "#3525cd",
+              "on-primary-fixed-variant": "#3323cc",
+              "primary-fixed-dim": "#c3c0ff",
+              "surface-container-highest": "#e1e2e8",
+              "outline-variant": "#c7c4d8",
+              "tertiary-fixed": "#ffddb8",
+              "surface-container": "#eceef3",
+              "on-secondary-fixed-variant": "#5516be",
+              "on-tertiary-fixed-variant": "#653e00",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffd4a4",
+              "primary-fixed": "#e2dfff",
+              "secondary-container": "#8455ef",
+              "on-secondary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb95f",
+              "on-background": "#191c20",
+              "on-tertiary-fixed": "#2a1700",
+              "on-primary-fixed": "#0f0069",
+              "primary-container": "#4f46e5",
+              "on-primary": "#ffffff",
+              "surface-dim": "#d8dae0",
+              "on-secondary-container": "#fffbff"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .neo-shadow {
+            box-shadow: 8px 8px 0px 0px #191c20;
+        }
+        .neo-shadow-sm {
+            box-shadow: 4px 4px 0px 0px #191c20;
+        }
+        .neo-border {
+            border: 3px solid #191c20;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary selection:text-white">
+<!-- Top Navigation Anchor -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-6 py-4 backdrop-blur-xl bg-white/80 dark:bg-[#191c20]/80">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center p-2 rounded-xl bg-surface-container-low neo-border neo-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+<span class="material-symbols-outlined text-primary font-bold">arrow_back</span>
+</button>
+<h1 class="font-headline font-black text-2xl bg-gradient-to-br from-[#3525cd] to-[#4f46e5] bg-clip-text text-transparent">Settings</h1>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<span class="font-headline font-bold text-lg tracking-tight text-primary">Pinglet</span>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 pt-8 pb-32 space-y-12">
+<!-- Account Section (Bento Style) -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<span class="text-3xl">👤</span>
+<h2 class="font-headline font-extrabold text-2xl uppercase tracking-tighter italic">Account Hub</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Profile Card -->
+<div class="md:col-span-2 bg-white neo-border neo-shadow p-8 rounded-3xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-400 to-purple-600 opacity-20 blur-3xl -mr-16 -mt-16"></div>
+<div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full neo-border overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a trendy young person with colorful lighting and a confident expression for a profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA974X2B0B5yYJorXudRLkWI3q6diPre6UuyPLtEsp7QY3ltMlWFdVh-8aGmOtmSgIVVzCEdaHdbiPcuGGDfdW6BmAStIeP02JicdvNeeLGB4Ex3JsxKeyxdhdloJlj1cqsJi6DAJ07xY4IjI_gACMRqJcSXYgSiLlEU4xGG-Itmz5IULxlvEQPobG_OOOKgMf6tBmdoE9RiLqdeYZ2eMHsGrErjozydWpxJQ1zQgwfHUeFIbOTF6Q_1c4BHyUP5ictCEkfAMPXrw"/>
+</div>
+<button class="absolute bottom-0 right-0 p-2 bg-primary text-white rounded-full neo-border neo-shadow-sm">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="flex-1 space-y-4 w-full">
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1 ml-1">Display Name</label>
+<input class="w-full bg-surface-container-low neo-border rounded-xl px-4 py-3 font-headline font-bold text-lg focus:ring-0 focus:outline-none focus:bg-white transition-colors" type="text" value="Alex Pinglet"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1 ml-1">Mantra</label>
+<input class="w-full bg-surface-container-low neo-border rounded-xl px-4 py-3 font-body text-on-surface-variant focus:ring-0 focus:outline-none focus:bg-white transition-colors" placeholder="Good vibes only ✨" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Stats/Action -->
+<div class="bg-gradient-to-br from-pink-500 to-purple-600 neo-border neo-shadow p-8 rounded-3xl flex flex-col justify-between text-white">
+<span class="text-4xl">🚀</span>
+<div>
+<h3 class="font-headline font-black text-xl mb-2">Member since '23</h3>
+<p class="text-white/80 text-sm">You've shared 1.2k memories this year.</p>
+</div>
+<button class="mt-4 w-full py-3 bg-white text-primary font-black rounded-xl neo-border neo-shadow-sm active:translate-y-1 active:shadow-none transition-all">
+                        VIEW LOGS
+                    </button>
+</div>
+</div>
+</section>
+<!-- Privacy Section -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<span class="text-3xl">🔐</span>
+<h2 class="font-headline font-extrabold text-2xl uppercase tracking-tighter italic">Privacy Fortress</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Toggle Card 1 -->
+<div class="bg-white neo-border neo-shadow p-6 rounded-3xl flex justify-between items-center group hover:bg-surface-container-low transition-colors">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center neo-border">
+<span class="material-symbols-outlined text-primary" data-weight="fill">verified_user</span>
+</div>
+<div>
+<h4 class="font-headline font-bold">End-to-End</h4>
+<p class="text-xs text-on-surface-variant">Military grade encryption</p>
+</div>
+</div>
+<div class="w-14 h-8 bg-primary rounded-full neo-border p-1 flex justify-end">
+<div class="w-5 h-5 bg-white rounded-full neo-shadow-sm"></div>
+</div>
+</div>
+<!-- Toggle Card 2 -->
+<div class="bg-white neo-border neo-shadow p-6 rounded-3xl flex justify-between items-center group hover:bg-surface-container-low transition-colors">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 bg-tertiary/10 rounded-2xl flex items-center justify-center neo-border">
+<span class="material-symbols-outlined text-tertiary">timer</span>
+</div>
+<div>
+<h4 class="font-headline font-bold">Ephemeral Mode</h4>
+<p class="text-xs text-on-surface-variant">Messages vanish like magic</p>
+</div>
+</div>
+<div class="w-14 h-8 bg-surface-container-highest rounded-full neo-border p-1 flex justify-start">
+<div class="w-5 h-5 bg-white rounded-full neo-shadow-sm"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Appearance & Notifications Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+<!-- Appearance -->
+<section class="lg:col-span-3 space-y-6">
+<div class="flex items-center gap-3">
+<span class="text-3xl">🎨</span>
+<h2 class="font-headline font-extrabold text-2xl uppercase tracking-tighter italic">Vibe Control</h2>
+</div>
+<div class="bg-white neo-border neo-shadow p-8 rounded-3xl space-y-8">
+<div>
+<p class="font-headline font-bold text-lg mb-4">Theme Selection</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<button class="flex flex-col items-center gap-2 p-3 rounded-2xl neo-border bg-white neo-shadow-sm border-primary ring-4 ring-primary/20">
+<div class="w-full aspect-square rounded-xl bg-gradient-to-br from-pink-400 to-purple-600 neo-border"></div>
+<span class="font-label text-[10px] font-black uppercase">Electric</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-2xl neo-border bg-surface-container-low neo-shadow-sm grayscale hover:grayscale-0 transition-all">
+<div class="w-full aspect-square rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 neo-border"></div>
+<span class="font-label text-[10px] font-black uppercase">Neon Mint</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-2xl neo-border bg-surface-container-low neo-shadow-sm grayscale hover:grayscale-0 transition-all">
+<div class="w-full aspect-square rounded-xl bg-gradient-to-br from-orange-400 to-red-500 neo-border"></div>
+<span class="font-label text-[10px] font-black uppercase">Sunset</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-2xl neo-border bg-surface-container-low neo-shadow-sm grayscale hover:grayscale-0 transition-all">
+<div class="w-full aspect-square rounded-xl bg-zinc-800 neo-border"></div>
+<span class="font-label text-[10px] font-black uppercase">Abyss</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Notifications -->
+<section class="lg:col-span-2 space-y-6">
+<div class="flex items-center gap-3">
+<span class="text-3xl">🔔</span>
+<h2 class="font-headline font-extrabold text-2xl uppercase tracking-tighter italic">Noise</h2>
+</div>
+<div class="bg-surface-container-lowest neo-border neo-shadow p-6 rounded-3xl space-y-4 h-full">
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-all">
+<span class="font-headline font-bold">Push Alerts</span>
+<span class="material-symbols-outlined text-primary" data-weight="fill">toggle_on</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-all">
+<span class="font-headline font-bold">Mention Pings</span>
+<span class="material-symbols-outlined text-primary" data-weight="fill">toggle_on</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-all">
+<span class="font-headline font-bold">In-App Audio</span>
+<span class="material-symbols-outlined text-outline">toggle_off</span>
+</div>
+<div class="pt-4 border-t-2 border-dashed border-outline-variant">
+<button class="w-full py-4 bg-error text-white font-black rounded-xl neo-border neo-shadow-sm hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all uppercase tracking-widest text-xs">
+                            Mute Everything
+                        </button>
+</div>
+</div>
+</section>
+</div>
+<!-- Back Action -->
+<div class="flex justify-center pt-8">
+<button class="group flex items-center gap-4 px-10 py-6 bg-[#191c20] text-white rounded-full neo-shadow hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-headline font-black text-xl tracking-tighter uppercase italic">Back to Chat</span>
+</button>
+</div>
+</main>
+<!-- Navigation Shell (BottomNavBar Mapping) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-[#191c20]/95 backdrop-blur-2xl">
+<div class="absolute top-0 left-0 w-full bg-gradient-to-r from-transparent via-[#c7c4d8]/20 to-transparent h-[1px]"></div>
+<a class="flex flex-col items-center justify-center text-[#464555] dark:text-[#c7c4d8] px-5 py-2 hover:text-[#3525cd] transition-all" href="#">
+<span class="material-symbols-outlined mb-1">chat_bubble</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Messages</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#464555] dark:text-[#c7c4d8] px-5 py-2 hover:text-[#3525cd] transition-all" href="#">
+<span class="material-symbols-outlined mb-1">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Memories</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#464555] dark:text-[#c7c4d8] px-5 py-2 hover:text-[#3525cd] transition-all" href="#">
+<span class="material-symbols-outlined mb-1">favorite</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Vibe</span>
+</a>
+<!-- ACTIVE TAB: Settings -->
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#3525cd] to-[#4f46e5] text-white rounded-2xl px-5 py-2 mb-1 shadow-lg shadow-indigo-500/20 scale-110 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Settings</span>
+</a>
+</nav>
+</body></html>

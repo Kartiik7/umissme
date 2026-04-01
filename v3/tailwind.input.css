@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* From stitch_search_archive.html */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.message-bubble-received {
+    border-bottom-left-radius: 0.25rem;
+}
+.message-bubble-sent {
+    border-bottom-right-radius: 0.25rem;
+}
+.thick-border {
+    border: 3px solid #191c20;
+}
+
+/* From stitch_landing_page.html */
+:root {
+    --primary-landing: #FF3DBC;
+    --secondary-landing: #00E5FF;
+    --accent-landing: #FFD600;
+    --bg-pastel: #F0F4FF;
+}
+.hero-skew {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+.card-overlap {
+    margin-top: -100px;
+}
+.bubbly-button {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.bubbly-button:hover {
+    transform: scale(1.05) rotate(-2deg);
+}
+.floating-emoji {
+    animation: floating 3s ease-in-out infinite;
+}
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Scrollbar hide utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pinglet - Build Your Crew!</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary: #FF3DBC;
+            --secondary: #00E5FF;
+            --accent: #FFD600;
+            --bg-pastel: #F0F4FF;
+            --surface: #FFFFFF;
+        }
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: var(--bg-pastel);
+        }
+        h1, h2, h3 { 
+            font-family: 'Fredoka One', cursive; 
+        }
+        .hero-skew {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .card-overlap {
+            margin-top: -100px;
+        }
+        .bubbly-button {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .bubbly-button:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+        .floating-emoji {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FF3DBC",
+                        secondary: "#00E5FF",
+                        accent: "#FFD600",
+                        "neon-green": "#39FF14",
+                        "soft-purple": "#B2A4FF",
+                    },
+                    borderRadius: {
+                        "extra": "2rem",
+                        "mega": "3rem"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="selection:bg-accent selection:text-black">
+<nav class="fixed top-0 w-full z-50 px-6 py-4">
+<div class="max-w-7xl mx-auto flex justify-between items-center bg-white/90 backdrop-blur-md rounded-full px-8 py-3 shadow-xl border-4 border-primary/10">
+<div class="text-3xl font-['Fredoka_One'] text-primary tracking-wider hover:rotate-3 transition-transform cursor-pointer">
+            Pinglet!
+        </div>
+<div class="hidden md:flex items-center space-x-10 font-bold text-gray-700">
+<a class="hover:text-primary transition-colors" href="#">Fun Box</a>
+<a class="hover:text-secondary transition-colors" href="#">Cool Stuff</a>
+<a class="hover:text-accent transition-colors" href="#">Safety First</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-black shadow-lg hover:rotate-12 transition-transform">
+<span class="material-symbols-outlined font-bold">celebration</span>
+</button>
+</div>
+</div>
+</nav>
+<main>
+<section class="relative min-h-[921px] flex items-center justify-center overflow-hidden hero-skew bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-20 left-10 w-64 h-64 bg-accent rounded-full blur-3xl"></div>
+<div class="absolute bottom-40 right-10 w-80 h-80 bg-secondary rounded-full blur-3xl"></div>
+</div>
+<div class="relative z-10 text-center px-6 pt-20">
+<div class="inline-block px-6 py-2 bg-accent text-black font-bold rounded-full mb-8 transform -rotate-2 shadow-xl border-2 border-black">
+                ✨ JOIN THE VIBE! ✨
+            </div>
+<h1 class="text-7xl md:text-9xl text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)] mb-6">
+                Pinglet
+            </h1>
+<p class="text-2xl md:text-4xl text-white font-bold max-w-3xl mx-auto leading-tight mb-12 drop-shadow-md">
+                Find <span class="text-accent">fun connections</span>, share laughs, and start <span class="underline decoration-secondary decoration-4">building your crew</span> today!
+            </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="bubbly-button px-10 py-5 bg-white text-primary rounded-full font-black text-2xl shadow-[0_10px_0_rgba(255,61,188,0.3)] hover:shadow-[0_5px_0_rgba(255,61,188,0.3)] active:translate-y-1">
+                    Create Space
+                </button>
+<button class="bubbly-button px-10 py-5 bg-secondary text-black rounded-full font-black text-2xl shadow-[0_10px_0_rgba(0,229,255,0.3)] hover:shadow-[0_5px_0_rgba(0,229,255,0.3)] active:translate-y-1">
+                    Join Space
+                </button>
+</div>
+</div>
+<div class="absolute top-1/4 left-10 text-6xl floating-emoji hidden lg:block">🚀</div>
+<div class="absolute bottom-1/4 right-20 text-7xl floating-emoji hidden lg:block" style="animation-delay: 1s">💖</div>
+<div class="absolute top-1/3 right-1/4 text-5xl floating-emoji hidden lg:block" style="animation-delay: 2s">✨</div>
+</section>
+<section class="px-6 pb-24 relative z-20">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 card-overlap">
+<div class="group bg-white p-10 rounded-mega shadow-[15px_15px_0px_#FF3DBC] border-4 border-black transition-all hover:-rotate-2">
+<div class="w-20 h-20 bg-primary/20 rounded-3xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-6 transition-transform">
+<span class="material-symbols-outlined text-5xl text-primary" data-icon="chat">chat</span>
+</div>
+<h3 class="text-3xl font-bold mb-4 text-primary">Sharing Laughs</h3>
+<p class="text-xl font-bold text-gray-600 mb-8">
+                    Send high-five memes, voice notes, and weird stickers. No boring texts allowed!
+                </p>
+<div class="rounded-extra overflow-hidden border-4 border-primary/20 bg-soft-purple/10 p-4">
+<img class="w-full h-48 object-contain" data-alt="Playful illustration of friends chatting with emoji bubbles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGcNykI-C6cooPjbcEt-2ZmcE_FYPvrksctpEhuI4T5XE1jRhoJC407kovILTRdbiIQtR3yyBB7uO7D8bKA6Sepl8t-MxfJfWRYC6qgLXyo37SWXOMw5ZulZq9i1zryJEO_nOxVWYZi-TI0X26S0zQfldMVgj7STAdF5lgJQqPPUy1lHY3OkESbnrA7J7ru5foNDiYubhphioIVGl5VmF9ndXI1Wa-1HQU9A6nI4SZKFfSJMZOddGYDPnHKZAwwF2NH69mPmLtRA"/>
+</div>
+</div>
+<div class="group bg-white p-10 rounded-mega shadow-[15px_15px_0px_#FFD600] border-4 border-black transition-all hover:rotate-2 md:mt-12">
+<div class="w-20 h-20 bg-accent/20 rounded-3xl flex items-center justify-center mb-8 -rotate-3 group-hover:rotate-0 transition-transform">
+<span class="material-symbols-outlined text-5xl text-accent" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<h3 class="text-3xl font-bold mb-4 text-orange-500">Fast Pings</h3>
+<p class="text-xl font-bold text-gray-600 mb-8">
+                    Send a nudge to say "I'm here!" with one tap. Fast, fun, and totally effortless.
+                </p>
+<div class="rounded-extra overflow-hidden border-4 border-accent/20 bg-accent/10 p-4 flex items-center justify-center h-48">
+<div class="relative">
+<div class="w-24 h-24 bg-accent rounded-full animate-ping absolute opacity-50"></div>
+<div class="w-24 h-24 bg-accent rounded-full border-4 border-black flex items-center justify-center text-4xl">👋</div>
+</div>
+</div>
+</div>
+<div class="group bg-white p-10 rounded-mega shadow-[15px_15px_0px_#00E5FF] border-4 border-black transition-all hover:-rotate-1">
+<div class="w-20 h-20 bg-secondary/20 rounded-3xl flex items-center justify-center mb-8 rotate-6 group-hover:-rotate-3 transition-transform">
+<span class="material-symbols-outlined text-5xl text-secondary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="text-3xl font-bold mb-4 text-secondary">Crew Memories</h3>
+<p class="text-xl font-bold text-gray-600 mb-8">
+                    A colorful vault for all your squad goals and epic late-night photos.
+                </p>
+<div class="rounded-extra overflow-hidden border-4 border-secondary/20 bg-secondary/10 p-4">
+<img class="w-full h-48 object-cover rounded-xl" data-alt="Cartoon collage of scrapbooked memories and bright shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUXHTv6ivGhIiqaFN3jE0arZjzB_4D5vBy5YZig2-z32nrgnmba1GhySWawAbPLxb3mLE6PSBzsFRPl_AINV2os3u7Av-49LEEr5IIqr_XVS5uBL_vsJ-hjt0yrgwexG-9hBYLHSk0-Y-SxlJGviLf4S5bNhOpD6bCvTpvfErNou-A8nOmK-EsOHAsRmxGpPaN3y0LPId3butUfWNVK8UArHcWaBQ-pamRQRbOl7b6LTkth8bphBwu8xcGeoeWp2u0ivn20FlMhA"/>
+</div>
+</div>
+</div>
+</section>
+<section class="px-6 py-32 bg-accent/10 relative overflow-hidden">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-5xl md:text-6xl text-center text-black mb-24 drop-shadow-sm transform -rotate-1">How to start the fun 🌈</h2>
+<div class="space-y-16">
+<div class="flex flex-col md:flex-row items-center gap-12 group">
+<div class="w-32 h-32 shrink-0 rounded-full bg-primary border-4 border-black flex items-center justify-center text-white text-5xl font-black shadow-[8px_8px_0px_#000] group-hover:scale-110 transition-transform">1</div>
+<div class="bg-white p-8 rounded-3xl border-4 border-black shadow-xl flex-grow rotate-1 group-hover:rotate-0 transition-transform">
+<h4 class="text-3xl font-bold mb-3 text-primary">Pick Your Aesthetic</h4>
+<p class="text-xl text-gray-700 font-bold">Give your space a name and choose colors that match your squad's vibe. Neon? Pastel? It's all up to you!</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+<div class="w-32 h-32 shrink-0 rounded-full bg-secondary border-4 border-black flex items-center justify-center text-black text-5xl font-black shadow-[8px_8px_0px_#000] group-hover:scale-110 transition-transform">2</div>
+<div class="bg-white p-8 rounded-3xl border-4 border-black shadow-xl flex-grow -rotate-1 group-hover:rotate-0 transition-transform">
+<h4 class="text-3xl font-bold mb-3 text-secondary">Invite The Crew</h4>
+<p class="text-xl text-gray-700 font-bold">Building your crew is easy. Send a magic link and get everyone together in seconds. High fives for everyone! 🖐️</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-12 group">
+<div class="w-32 h-32 shrink-0 rounded-full bg-accent border-4 border-black flex items-center justify-center text-black text-5xl font-black shadow-[8px_8px_0px_#000] group-hover:scale-110 transition-transform">3</div>
+<div class="bg-white p-8 rounded-3xl border-4 border-black shadow-xl flex-grow rotate-1 group-hover:rotate-0 transition-transform">
+<h4 class="text-3xl font-bold mb-3 text-orange-500">Go Wild!</h4>
+<p class="text-xl text-gray-700 font-bold">Start the pings, drop the memes, and collect the memories. This is your corner of the internet!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="px-6 py-32 bg-white overflow-hidden">
+<div class="max-w-5xl mx-auto bg-gradient-to-r from-primary via-purple-500 to-secondary p-1 rounded-mega transform hover:scale-[1.02] transition-transform">
+<div class="bg-white rounded-[2.8rem] p-12 md:p-24 text-center border-4 border-black">
+<h2 class="text-5xl md:text-7xl mb-12 text-black leading-none">Ready to <span class="text-primary italic">blast off</span>?</h2>
+<div class="flex flex-wrap justify-center gap-6">
+<button class="px-16 py-8 bg-accent text-black rounded-full font-black text-3xl border-4 border-black shadow-[10px_10px_0px_#000] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                        LET'S GOOO!
+                    </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-black text-white py-16">
+<div class="max-w-7xl mx-auto px-6 text-center">
+<div class="text-5xl font-['Fredoka_One'] text-secondary mb-8">Pinglet!</div>
+<div class="flex flex-wrap justify-center gap-10 mb-12 font-bold text-xl">
+<a class="hover:text-primary transition-colors" href="#">The Rules</a>
+<a class="hover:text-secondary transition-colors" href="#">Our Vibe</a>
+<a class="hover:text-accent transition-colors" href="#">Help!</a>
+</div>
+<div class="text-gray-500 font-bold">
+            © 2024 Pinglet. No boring adults allowed. ✌️
+        </div>
+</div>
+</footer>
+<nav class="md:hidden fixed bottom-6 left-6 right-6 z-50">
+<div class="bg-white border-4 border-black rounded-full py-4 px-8 flex justify-between items-center shadow-2xl">
+<span class="material-symbols-outlined text-primary text-3xl font-bold">chat</span>
+<span class="material-symbols-outlined text-secondary text-3xl font-bold">stars</span>
+<span class="material-symbols-outlined text-accent text-3xl font-bold">mood</span>
+</div>
+</nav>
+
+</body></html>

@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-fredoka: "Fredoka One", cursive;
+  --font-quicksand: "Quicksand", sans-serif;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  
+  --color-primary: #FF3DBC;
+  --color-secondary: #00E5FF;
+  --color-accent: #FFD600;
+  --color-neon-green: #39FF14;
+  --color-soft-purple: #B2A4FF;
+}
+
+@layer base {
+  body {
+    @apply font-quicksand bg-[#F0F4FF] text-black selection:bg-accent selection:text-black;
+  }
+}
+
+@layer components {
+  .neo-shadow {
+    @apply shadow-[8px_8px_0px_0px_#191c20];
+  }
+  .neo-shadow-sm {
+    @apply shadow-[4px_4px_0px_0px_#191c20];
+  }
+  .neo-border {
+    @apply border-4 border-[#191c20];
+  }
+  .neo-border-sm {
+    @apply border-2 border-[#191c20];
+  }
+}

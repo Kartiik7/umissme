@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pinglet - Shared Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#c3c0ff",
+              "outline": "#777587",
+              "surface": "#f8f9ff",
+              "surface-tint": "#4d44e3",
+              "secondary-fixed": "#e9ddff",
+              "on-error-container": "#93000a",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e1e2e8",
+              "on-secondary-fixed": "#23005c",
+              "on-error": "#ffffff",
+              "tertiary-container": "#885500",
+              "secondary-fixed-dim": "#d0bcff",
+              "on-surface-variant": "#464555",
+              "on-primary-container": "#dad7ff",
+              "inverse-on-surface": "#eff0f6",
+              "background": "#f8f9ff",
+              "inverse-surface": "#2e3135",
+              "on-surface": "#191c20",
+              "surface-container-high": "#e7e8ee",
+              "secondary": "#6b38d4",
+              "tertiary": "#684000",
+              "error": "#ba1a1a",
+              "surface-container-low": "#f2f3f9",
+              "surface-bright": "#f8f9ff",
+              "primary": "#3525cd",
+              "on-primary-fixed-variant": "#3323cc",
+              "primary-fixed-dim": "#c3c0ff",
+              "surface-container-highest": "#e1e2e8",
+              "outline-variant": "#c7c4d8",
+              "tertiary-fixed": "#ffddb8",
+              "surface-container": "#eceef3",
+              "on-secondary-fixed-variant": "#5516be",
+              "on-tertiary-fixed-variant": "#653e00",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffd4a4",
+              "primary-fixed": "#e2dfff",
+              "secondary-container": "#8455ef",
+              "on-secondary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb95f",
+              "on-background": "#191c20",
+              "on-tertiary-fixed": "#2a1700",
+              "on-primary-fixed": "#0f0069",
+              "primary-container": "#4f46e5",
+              "on-primary": "#ffffff",
+              "surface-dim": "#d8dae0",
+              "on-secondary-container": "#fffbff"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .neo-brutalist-border {
+        box-shadow: 6px 6px 0px 0px #191c20;
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed-dim">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 py-4 backdrop-blur-xl bg-white/80 dark:bg-[#191c20]/80 docked full-width top-0 sticky z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">arrow_back</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-[#3525cd]">Sanctuary Space</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#464555] cursor-pointer" data-icon="search">search</span>
+<span class="material-symbols-outlined text-[#464555] cursor-pointer" data-icon="archive">archive</span>
+</div>
+</header>
+<main class="max-w-2xl mx-auto px-6 pb-32 pt-8">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center mb-12">
+<div class="relative flex items-center justify-center mb-6">
+<!-- Overlapping Avatars -->
+<div class="relative flex -space-x-6">
+<div class="w-24 h-24 rounded-full border-4 border-surface overflow-hidden z-10">
+<img alt="" class="w-full h-full object-cover" data-alt="close-up portrait of a smiling young woman with warm skin tones and soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7XPUVNlJJVxc2Q2VaatES3v-6J3yRZI24me4HaqArUlExE8ST4Oc_tFkmeloOdOx7RXoy1gjzZOggW6kM5G2OcUBkEGOQCsfkqbs4wkrhJC9FFJzcTIRi81YnnnDRpQsPHUI-JWXiNA_mIXWAm7aESrJ6x7UabxTvZTMrjDfHXDOximYy5ZjI9O7DnVNgTuE8dGixNRJNYLmhGuZWDiEiGriuhjZUPbqnoVV8ORUYTYlsL-4BKe6I0hArFgkqLRhPmrrxcuiWXA"/>
+</div>
+<div class="w-24 h-24 rounded-full border-4 border-surface overflow-hidden z-0">
+<img alt="" class="w-full h-full object-cover" data-alt="close-up portrait of a man with gentle expression in a minimalist urban setting with morning sun" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrzaL_Ld-Q7KnBh-JFriCM8Cr_QcxZjN8GlxjUkjpE9r2F6EP9kMJiZzmdazBdnMH3pnkt4ekouTi6bnxOgNH8BP72RcSXnoN6BiHqPtjnziUUIu5E0Dt5joM2gs3mShUDFjHX7gW4lIaaA8oxyhyfnxLjUXBUly160PvREgKPtde6wxyG5x1GLF25EhXI4FiOogp5xhU4QAeX7XQmzeYcmJnQtggq4CAT2iSxIfsUL57gPeTOPdb9q7-efUeDFfup38qwm51JLg"/>
+</div>
+</div>
+<!-- Heart Emoji Overlay -->
+<div class="absolute -bottom-2 right-1/2 translate-x-12 bg-white shadow-xl rounded-full w-10 h-10 flex items-center justify-center text-xl z-20">
+                    ❤️
+                </div>
+</div>
+<div class="text-center">
+<h2 class="font-headline text-2xl font-extrabold text-on-surface tracking-tight mb-1">Alex &amp; Sam</h2>
+<p class="text-on-surface-variant text-sm font-medium">Since October 2023 • Private Space</p>
+</div>
+</section>
+<!-- Our Vibe Section (Colorful Mutual Interests) -->
+<section class="mb-12">
+<div class="flex justify-between items-end mb-6">
+<h3 class="font-headline text-xl font-bold">Our Vibe</h3>
+<span class="text-primary text-sm font-semibold cursor-pointer">Edit Vibe</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<!-- Interest Card 1 -->
+<div class="bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] p-5 rounded-3xl text-white flex flex-col justify-between h-32 transform hover:rotate-2 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">music_note</span>
+<span class="font-bold text-sm">Deep House</span>
+</div>
+<!-- Interest Card 2 -->
+<div class="bg-gradient-to-br from-[#4facfe] to-[#00f2fe] p-5 rounded-3xl text-white flex flex-col justify-between h-32 transform hover:-rotate-2 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="font-bold text-sm">Sci-Fi Marathons</span>
+</div>
+<!-- Interest Card 3 -->
+<div class="bg-gradient-to-br from-[#6a11cb] to-[#2575fc] p-5 rounded-3xl text-white flex flex-col justify-between h-32 transform hover:rotate-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="font-bold text-sm">Spicy Ramen</span>
+</div>
+<!-- Interest Card 4 -->
+<div class="bg-gradient-to-br from-[#f093fb] to-[#f5576c] p-5 rounded-3xl text-white flex flex-col justify-between h-32 transform hover:-rotate-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">park</span>
+<span class="font-bold text-sm">Sunset Hikes</span>
+</div>
+<!-- Interest Card 5 -->
+<div class="bg-gradient-to-br from-[#43e97b] to-[#38f9d7] p-5 rounded-3xl text-white flex flex-col justify-between h-32 transform hover:rotate-3 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">coffee</span>
+<span class="font-bold text-sm">Oat Lattes</span>
+</div>
+</div>
+</section>
+<!-- Space Stats Section (Asymmetric Bento) -->
+<section class="mb-16">
+<h3 class="font-headline text-xl font-bold mb-6">Space Stats</h3>
+<div class="grid grid-cols-4 gap-4">
+<div class="col-span-2 bg-surface-container-low p-6 rounded-3xl flex flex-col justify-center">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-2">Days Together</p>
+<p class="text-4xl font-headline font-black text-primary">124</p>
+</div>
+<div class="col-span-2 bg-surface-container-low p-6 rounded-3xl flex flex-col justify-center">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-2">Total Pings</p>
+<p class="text-4xl font-headline font-black text-secondary">2.8k</p>
+</div>
+<div class="col-span-4 bg-gradient-to-br from-primary to-primary-container p-6 rounded-3xl flex items-center justify-between">
+<div>
+<p class="text-on-primary-container text-xs font-bold uppercase tracking-widest mb-1">Memory Count</p>
+<p class="text-3xl font-headline font-black text-white">412 Moments</p>
+</div>
+<span class="material-symbols-outlined text-white/40 text-5xl">auto_awesome</span>
+</div>
+</div>
+</section>
+<!-- Large Warning Button (Neo-Brutalist) -->
+<section class="mt-8">
+<button class="w-full bg-[#ff3b30] text-white font-headline font-black text-xl py-6 rounded-2xl border-4 border-[#191c20] neo-brutalist-border flex items-center justify-center gap-3 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase tracking-tighter">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">heart_broken</span>
+                Leave Space
+            </button>
+<p class="text-center text-on-surface-variant text-xs mt-6 px-10 leading-relaxed font-medium">
+                Leaving the Sanctuary will archive all shared memories and pings for both participants.
+            </p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-[#191c20]/95 backdrop-blur-2xl">
+<div class="flex flex-col items-center justify-center text-[#464555] dark:text-[#c7c4d8] px-5 py-2 hover:text-[#3525cd] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Messages</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#464555] dark:text-[#c7c4d8] px-5 py-2 hover:text-[#3525cd] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Memories</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#464555] dark:text-[#c7c4d8] px-5 py-2 hover:text-[#3525cd] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="favorite">favorite</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Vibe</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#3525cd] to-[#4f46e5] text-white rounded-2xl px-5 py-2 mb-1 shadow-lg shadow-indigo-500/20 scale-110">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Settings</span>
+</div>
+</nav>
+<!-- Glassmorphism Separation Line -->
+<div class="fixed bottom-[104px] left-0 right-0 z-40 bg-gradient-to-r from-transparent via-[#c7c4d8]/20 to-transparent h-[1px]"></div>
+</body></html>
