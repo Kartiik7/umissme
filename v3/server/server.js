@@ -12,6 +12,7 @@ import CoupleSpace from './models/CoupleSpace.js';
 import Message from './models/Message.js';
 import spaceRoutes from './routes/spaceRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
+import healthRoutes from './routes/healthRoutes.js';
 
 dotenv.config();
 
@@ -59,11 +60,7 @@ app.use(express.json());
 // Routes
 app.use('/api/spaces', spaceRoutes);
 app.use('/api/messages', messageRoutes);
-
-// Health check
-app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', app: 'pinglet' });
-});
+app.use('/api/health', healthRoutes);
 
 if (HAS_CLIENT_DIST) {
   // Serve built frontend when available (single-host deployment).

@@ -19,14 +19,159 @@
     transition: filter 0.3s ease, background-color 0.3s ease;
   }
   
+  /* Eye-friendly dark mode mappings (soft charcoal palette) */
   html.dark {
-    filter: invert(1) hue-rotate(180deg);
+    --color-primary: #6f86cc;
+    --color-secondary: #667aa5;
+    --color-accent: #7b8394;
   }
-  
-  html.dark img,
-  html.dark video {
-    filter: invert(1) hue-rotate(180deg);
+
+  html.dark body,
+  html.dark .bg-\[\#F0F4FF\],
+  html.dark .bg-\[\#f8f9ff\] {
+    background-color: #0e1219 !important;
   }
+
+  html.dark .bg-white,
+  html.dark .bg-white\/90 {
+    background-color: #1a202b !important;
+  }
+
+  /* Outgoing bubble / primary actions: highlighted but not neon */
+  html.dark .bg-primary {
+    background-color: #5a73b6 !important;
+  }
+
+  html.dark .bg-secondary {
+    background-color: #4f6285 !important;
+  }
+
+  html.dark .bg-accent {
+    background-color: #424d62 !important;
+  }
+
+  html.dark .bg-gray-50,
+  html.dark .bg-gray-100,
+  html.dark .bg-black\/10 {
+    background-color: #141b27 !important;
+  }
+
+  html.dark .bg-primary\/10 { background-color: rgba(111, 134, 204, 0.16) !important; }
+  html.dark .bg-primary\/20 { background-color: rgba(111, 134, 204, 0.22) !important; }
+  html.dark .bg-secondary\/10 { background-color: rgba(102, 122, 165, 0.16) !important; }
+  html.dark .bg-secondary\/20 { background-color: rgba(102, 122, 165, 0.22) !important; }
+  html.dark .bg-accent\/10 { background-color: rgba(123, 131, 148, 0.14) !important; }
+  html.dark .bg-accent\/20 { background-color: rgba(123, 131, 148, 0.2) !important; }
+
+  html.dark .text-black,
+  html.dark .text-gray-900,
+  html.dark .text-gray-800,
+  html.dark .text-gray-700 {
+    color: #eaf0fd !important;
+  }
+
+  html.dark .text-white {
+    color: #f7faff !important;
+  }
+
+  html.dark .text-gray-600,
+  html.dark .text-gray-500 {
+    color: #b5c0d8 !important;
+  }
+
+  /* Timestamps, hints, and metadata */
+  html.dark .text-gray-400,
+  html.dark .text-white\/70 {
+    color: #92a0bb !important;
+  }
+
+  html.dark .text-secondary {
+    color: #a8bced !important;
+  }
+
+  html.dark .text-primary {
+    color: #b6c6ee !important;
+  }
+
+  html.dark .text-accent {
+    color: #c8d0e3 !important;
+  }
+
+  html.dark .text-green-500 {
+    color: #72c987 !important;
+  }
+
+  html.dark .placeholder-gray-400::placeholder {
+    color: #8896b2 !important;
+  }
+
+  /* Explicit control styling to avoid dark-bg + black-text readability issues */
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    color: #eaf0fd !important;
+    background-color: #141b27 !important;
+    caret-color: #b6c6ee;
+  }
+
+  html.dark input::placeholder,
+  html.dark textarea::placeholder {
+    color: #8b99b5 !important;
+  }
+
+  html.dark .border-black {
+    border-color: #313c52 !important;
+  }
+
+  html.dark .border-gray-100,
+  html.dark .border-gray-200,
+  html.dark .border-gray-300 {
+    border-color: rgba(173, 186, 214, 0.24) !important;
+  }
+
+  /* Calm down highly saturated gradients in dark mode */
+  html.dark .from-indigo-500 {
+    --tw-gradient-from: #2f3952 var(--tw-gradient-from-position) !important;
+    --tw-gradient-to: rgb(47 57 82 / 0) var(--tw-gradient-to-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-from), var(--tw-gradient-to)) !important;
+  }
+
+  html.dark .via-purple-500 {
+    --tw-gradient-via: #394664 var(--tw-gradient-via-position) !important;
+    --tw-gradient-to: rgb(57 70 100 / 0) var(--tw-gradient-to-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to) !important;
+  }
+
+  html.dark .to-pink-500,
+  html.dark .to-indigo-600,
+  html.dark .to-\[\#c026d3\],
+  html.dark .to-\[\#4f46e5\] {
+    --tw-gradient-to: #4f6391 var(--tw-gradient-to-position) !important;
+  }
+
+  html.dark .hover\:bg-gray-50:hover {
+    background-color: #1b2333 !important;
+  }
+
+  html.dark .hover\:bg-gray-200:hover,
+  html.dark .hover\:bg-accent:hover {
+    background-color: #293652 !important;
+  }
+
+  html.dark .hover\:text-black:hover {
+    color: #f1f5ff !important;
+  }
+
+  html.dark .focus\:border-primary:focus {
+    border-color: #87a0df !important;
+  }
+
+  /* Keep depth cues subtle in dark mode */
+  html.dark .shadow-\[8px_8px_0_\#000\] { box-shadow: 8px 8px 0 rgba(9, 12, 20, 0.45) !important; }
+  html.dark .shadow-\[6px_6px_0_\#000\] { box-shadow: 6px 6px 0 rgba(9, 12, 20, 0.42) !important; }
+  html.dark .shadow-\[4px_4px_0_\#000\] { box-shadow: 4px 4px 0 rgba(9, 12, 20, 0.38) !important; }
+  html.dark .shadow-\[3px_3px_0_\#000\] { box-shadow: 3px 3px 0 rgba(9, 12, 20, 0.34) !important; }
+  html.dark .shadow-\[2px_2px_0_\#000\] { box-shadow: 2px 2px 0 rgba(9, 12, 20, 0.3) !important; }
 }
 
 @layer components {
