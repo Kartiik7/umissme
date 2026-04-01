@@ -102,11 +102,12 @@ export default function ChatScreen() {
     const content = input;
     setInput('');
     socketService.emitStopTyping(spaceId, userName);
-    socketService.emitMessageSent(spaceId, userName);
 
     try {
       setMessages(prev => [...prev, { _id: Date.now().toString(), sender: userName, content, type: 'text', createdAt: new Date(), delivered: false }]);
       await sendMessage(spaceId, content);
+      // Emit after persistence so peers don't refresh before DB write completes.
+      socketService.emitMessageSent(spaceId, userName);
       loadMessages();
     } catch (err) {
       console.error(err);
@@ -116,11 +117,12 @@ export default function ChatScreen() {
   const handlePing = async () => {
     if (!spaceId || !userName) return;
     try {
-      socketService.emitMessageSent(spaceId, userName);
       await Promise.all([
         sendMessage(spaceId, 'Sent a Ping 👋', 'ping' as any),
         sendPing(spaceId, 'zap') // Adds it to the Activity Timeline
       ]);
+      // Emit after related writes complete for reliable live updates.
+      socketService.emitMessageSent(spaceId, userName);
       loadMessages();
     } catch (err) {
       console.error(err);
