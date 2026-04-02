@@ -105,6 +105,8 @@ export default function ChatScreen() {
       if (typingUser !== userName) setPartnerTyping(false);
     });
 
+    socketService.socket?.emit('join-space', { spaceId, userName });
+
     return () => {
       unsubJoined();
       unsubMessageUpdated();
@@ -128,7 +130,7 @@ export default function ChatScreen() {
   }, [messages, partnerTyping]);
 
   const markSeenRealtime = async () => {
-    if (!spaceId || !userName || !hasJoinedRef.current) return;
+    if (!spaceId || !userName) return;
 
     try {
       await markMessagesSeen(spaceId);
@@ -159,11 +161,23 @@ export default function ChatScreen() {
     if (!input.trim() || !spaceId || !userName) return;
 
     const content = input;
+    const optimisticMessage = {
+      _id: Date.now().toString(),
+      sender: userName,
+      content,
+      text: content,
+      type: 'text',
+      createdAt: new Date(),
+      delivered: false,
+      seen: false,
+    };
+
     setInput('');
     socketService.emitStopTyping(spaceId, userName);
 
     try {
-      setMessages(prev => [...prev, { _id: Date.now().toString(), sender: userName, content, type: 'text', createdAt: new Date(), delivered: false }]);
+      socketService.emitMessageSent(spaceId, userName, optimisticMessage);
+      setMessages(prev => [...prev, optimisticMessage]);
       await sendMessage(spaceId, content);
       loadMessages();
     } catch (err) {
