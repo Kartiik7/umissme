@@ -4,6 +4,10 @@ import { motion } from 'motion/react';
 import { getMessages, sendMessage, markMessagesSeen, getAuth, sendPing } from '../services/api';
 import { socketService } from '../services/socket';
 
+function normalizeName(value: unknown) {
+  return String(value || '').trim().toLowerCase();
+}
+
 export default function ChatScreen() {
   const [messages, setMessages] = useState<any[]>([]);
   const [input, setInput] = useState('');
@@ -31,11 +35,18 @@ export default function ChatScreen() {
 
     const unsubPresence = socketService.on('presence-state', (data) => {
       hasJoinedRef.current = true;
-      if (data.online.some((name: string) => name !== userName)) {
+
+      const self = normalizeName(userName);
+      const partnerLs = data.lastSeen.find((l: any) => normalizeName(l.userName) !== self);
+      const partnerName = normalizeName(partnerLs?.userName);
+      const partnerOnline = partnerName
+        ? data.online.some((name: string) => normalizeName(name) === partnerName)
+        : data.online.some((name: string) => normalizeName(name) !== self);
+
+      if (partnerOnline) {
         setIsPartnerOnline(true);
       } else {
         setIsPartnerOnline(false);
-        const partnerLs = data.lastSeen.find((l: any) => l.userName !== userName);
         if (partnerLs?.lastSeen) setPartnerLastSeen(new Date(partnerLs.lastSeen));
       }
 
@@ -43,11 +54,11 @@ export default function ChatScreen() {
     });
 
     const unsubUserOnline = socketService.on('user-online', ({ userName: joinedUser }) => {
-      if (joinedUser !== userName) setIsPartnerOnline(true);
+      if (normalizeName(joinedUser) !== normalizeName(userName)) setIsPartnerOnline(true);
     });
 
     const unsubUserLastSeen = socketService.on('user-last-seen', ({ userName: leftUser, lastSeen }) => {
-      if (leftUser !== userName) {
+      if (normalizeName(leftUser) !== normalizeName(userName)) {
         setIsPartnerOnline(false);
         setPartnerLastSeen(new Date(lastSeen));
       }
