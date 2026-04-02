@@ -49,6 +49,12 @@ export const sendMessage = async (req, res) => {
       expiresAt,
     });
 
+    const io = req.app.get('io');
+    if (io) {
+      io.to(spaceId).emit('message-created', { message });
+      io.to(spaceId).emit('messages-updated', { sender });
+    }
+
     await Activity.create({
       spaceId,
       type: 'message',
@@ -109,6 +115,12 @@ export const markMessagesSeen = async (req, res) => {
         deliveredAt: new Date(),
       }
     );
+
+    const io = req.app.get('io');
+    if (io && result.modifiedCount > 0) {
+      io.to(spaceId).emit('messages-read', { reader: sender });
+    }
+
     res.json({ modifiedCount: result.modifiedCount });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });

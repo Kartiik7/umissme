@@ -5,10 +5,18 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || window.location.origin;
 class SocketService {
   public socket: Socket | null = null;
   private listeners: Record<string, ((data: any) => void)[]> = {};
+  private currentSpaceId: string | null = null;
+  private currentUserName: string | null = null;
 
   connect(spaceId: string, userName: string) {
+    this.currentSpaceId = spaceId;
+    this.currentUserName = userName;
+
     if (this.socket) {
-      if (this.socket.connected) return;
+      if (this.socket.connected) {
+        this.socket.emit('join-space', { spaceId, userName });
+        return;
+      }
       this.socket.connect();
     } else {
       this.socket = io(SOCKET_URL, {
@@ -18,7 +26,12 @@ class SocketService {
 
       this.socket.on('connect', () => {
         console.log('Socket connected', this.socket?.id);
-        this.socket?.emit('join-space', { spaceId, userName });
+        if (this.currentSpaceId && this.currentUserName) {
+          this.socket?.emit('join-space', {
+            spaceId: this.currentSpaceId,
+            userName: this.currentUserName,
+          });
+        }
       });
 
       this.setupBaseListeners();
@@ -28,8 +41,8 @@ class SocketService {
   private setupBaseListeners() {
     if (!this.socket) return;
 
-    ['user-online', 'presence-state', 'message-delivered', 'messages-read', 
-     'user-typing', 'user-stop-typing', 'messages-updated', 'user-last-seen', 'session-kicked'].forEach(event => {
+    ['joined-space', 'join-error', 'user-online', 'presence-state', 'message-delivered', 'messages-read',
+     'user-typing', 'user-stop-typing', 'messages-updated', 'message-created', 'user-last-seen', 'session-kicked'].forEach(event => {
       this.socket!.on(event, (data) => {
         if (this.listeners[event]) {
           this.listeners[event].forEach(cb => cb(data));
@@ -58,8 +71,8 @@ class SocketService {
     this.socket?.emit('stop-typing', { spaceId, userName });
   }
 
-  emitMessageSent(spaceId: string, userName: string) {
-    this.socket?.emit('message-sent', { spaceId, userName });
+  emitMessageSent(spaceId: string, userName: string, message?: any) {
+    this.socket?.emit('message-sent', { spaceId, userName, message });
   }
 
   emitMarkSeen(spaceId: string, reader: string) {
@@ -71,6 +84,8 @@ class SocketService {
       this.socket.disconnect();
       this.socket = null;
     }
+    this.currentSpaceId = null;
+    this.currentUserName = null;
     this.listeners = {};
   }
 }

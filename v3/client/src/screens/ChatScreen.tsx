@@ -14,16 +14,23 @@ export default function ChatScreen() {
   const [isPartnerOnline, setIsPartnerOnline] = useState(false);
   const [partnerLastSeen, setPartnerLastSeen] = useState<Date | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasJoinedRef = useRef(false);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { spaceId, userName } = getAuth();
 
   useEffect(() => {
     if (!spaceId || !userName) return;
 
-    socketService.connect(spaceId, userName);
     loadMessages();
 
+    const unsubJoined = socketService.on('joined-space', () => {
+      hasJoinedRef.current = true;
+      markSeenRealtime();
+    });
+
     const unsubPresence = socketService.on('presence-state', (data) => {
+      hasJoinedRef.current = true;
       if (data.online.some((name: string) => name !== userName)) {
         setIsPartnerOnline(true);
       } else {
@@ -31,6 +38,8 @@ export default function ChatScreen() {
         const partnerLs = data.lastSeen.find((l: any) => l.userName !== userName);
         if (partnerLs?.lastSeen) setPartnerLastSeen(new Date(partnerLs.lastSeen));
       }
+
+      markSeenRealtime();
     });
 
     const unsubUserOnline = socketService.on('user-online', ({ userName: joinedUser }) => {
@@ -44,14 +53,50 @@ export default function ChatScreen() {
       }
     });
 
+    const unsubMessageCreated = socketService.on('message-created', ({ message }) => {
+      if (!message) return;
+      const incomingSpaceId = String(message.spaceId?._id || message.spaceId || '');
+      if (incomingSpaceId !== spaceId) return;
+
+      setMessages((prev) => {
+        if (prev.some((m) => m._id === message._id)) return prev;
+        return [...prev, { ...message, content: message.text }];
+      });
+
+      if (message.sender !== userName) {
+        markSeenRealtime();
+      }
+    });
+
     const unsubMessageUpdated = socketService.on('messages-updated', () => {
       loadMessages();
     });
-    const unsubMessageRead = socketService.on('messages-read', () => {
-      loadMessages();
+    const unsubMessageRead = socketService.on('messages-read', ({ reader }) => {
+      if (reader === userName) return;
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.sender === userName
+            ? {
+                ...msg,
+                delivered: true,
+                seen: true,
+              }
+            : msg
+        )
+      );
     });
-    const unsubMessageDelivered = socketService.on('message-delivered', () => {
-      loadMessages();
+    const unsubMessageDelivered = socketService.on('message-delivered', ({ receiver }) => {
+      if (receiver === userName) return;
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.sender === userName
+            ? {
+                ...msg,
+                delivered: true,
+              }
+            : msg
+        )
+      );
     });
     const unsubTyping = socketService.on('user-typing', ({ userName: typingUser }) => {
       if (typingUser !== userName) setPartnerTyping(true);
@@ -61,7 +106,9 @@ export default function ChatScreen() {
     });
 
     return () => {
+      unsubJoined();
       unsubMessageUpdated();
+      unsubMessageCreated();
       unsubMessageRead();
       unsubMessageDelivered();
       unsubTyping();
@@ -69,7 +116,10 @@ export default function ChatScreen() {
       unsubPresence();
       unsubUserOnline();
       unsubUserLastSeen();
-      socketService.disconnect();
+
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
     };
   }, [spaceId, userName]);
 
@@ -77,13 +127,22 @@ export default function ChatScreen() {
     scrollToBottom();
   }, [messages, partnerTyping]);
 
+  const markSeenRealtime = async () => {
+    if (!spaceId || !userName || !hasJoinedRef.current) return;
+
+    try {
+      await markMessagesSeen(spaceId);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const loadMessages = async () => {
     try {
       const data = await getMessages(spaceId as string);
       const formatted = Array.isArray(data) ? data.map((m: any) => ({ ...m, content: m.text })) : [];
       setMessages(formatted);
-      await markMessagesSeen(spaceId as string);
-      socketService.emitMarkSeen(spaceId as string, userName as string);
+      markSeenRealtime();
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -106,8 +165,6 @@ export default function ChatScreen() {
     try {
       setMessages(prev => [...prev, { _id: Date.now().toString(), sender: userName, content, type: 'text', createdAt: new Date(), delivered: false }]);
       await sendMessage(spaceId, content);
-      // Emit after persistence so peers don't refresh before DB write completes.
-      socketService.emitMessageSent(spaceId, userName);
       loadMessages();
     } catch (err) {
       console.error(err);
@@ -121,22 +178,21 @@ export default function ChatScreen() {
         sendMessage(spaceId, 'Sent a Ping 👋', 'ping' as any),
         sendPing(spaceId, 'zap') // Adds it to the Activity Timeline
       ]);
-      // Emit after related writes complete for reliable live updates.
-      socketService.emitMessageSent(spaceId, userName);
       loadMessages();
     } catch (err) {
       console.error(err);
     }
   };
 
-  let typingTimeout: any = null;
   const handleTyping = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     if (!spaceId || !userName) return;
 
     socketService.emitTyping(spaceId, userName);
-    clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(() => {
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    typingTimeoutRef.current = setTimeout(() => {
       socketService.emitStopTyping(spaceId, userName);
     }, 2000);
   };

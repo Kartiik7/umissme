@@ -102,6 +102,7 @@ const io = new Server(httpServer, {
     methods: ['GET', 'POST'],
   },
 });
+app.set('io', io);
 
 // In-memory presence: socketId → { userName, spaceId, lastSeen }
 const onlineUsers = {};
@@ -221,8 +222,18 @@ io.on('connection', (socket) => {
 
   // User joins their space room
   socket.on('join-space', async ({ spaceId, userName }) => {
-    const validUser = await canJoinSpaceRoom(spaceId, userName);
-    if (!validUser) return;
+    let validUser = false;
+    try {
+      validUser = await canJoinSpaceRoom(spaceId, userName);
+    } catch (_error) {
+      socket.emit('join-error', { message: 'Join failed. Please retry.' });
+      return;
+    }
+
+    if (!validUser) {
+      socket.emit('join-error', { message: 'Unauthorized room join.' });
+      return;
+    }
 
     // Disconnect previous session
     const normalizedName = normalizeName(userName);
@@ -238,6 +249,7 @@ io.on('connection', (socket) => {
 
     socket.join(spaceId);
     onlineUsers[socket.id] = { userName, spaceId, lastSeen: new Date() };
+    socket.emit('joined-space', { spaceId, userName });
 
     // Tell everyone else in the room this user is online
     socket.to(spaceId).emit('user-online', { userName });
@@ -245,6 +257,10 @@ io.on('connection', (socket) => {
     // Send the joining user the current online members in that room plus stored last-seen data
     const snapshot = await getPresenceSnapshot(spaceId, userName);
     socket.emit('presence-state', snapshot);
+
+    // Keep all clients in the room in sync to avoid stale presence state after reconnects.
+    const roomSnapshot = await getPresenceSnapshot(spaceId, '');
+    io.to(spaceId).emit('presence-state', roomSnapshot);
 
     // Mark partner's pending messages as delivered when this user connects.
     const deliveredAt = new Date();
@@ -286,9 +302,15 @@ io.on('connection', (socket) => {
   });
 
   // Message updates — prompt room peers to refresh messages list
-  socket.on('message-sent', ({ spaceId, userName }) => {
+  socket.on('message-sent', ({ spaceId, userName, message }) => {
     const authorized = resolveAuthorizedEventContext(spaceId, userName);
     if (!authorized) return;
+
+    if (message) {
+      socket.to(authorized.spaceId).emit('message-created', {
+        message,
+      });
+    }
 
     socket.to(authorized.spaceId).emit('messages-updated', {
       sender: authorized.userName,

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Zap, Archive, Flame, Camera, Clock, MessageCircle, Heart } from 'lucide-react';
 import { motion } from 'motion/react';
 import { getSpaceOverview, getAuth } from '../services/api';
+import { socketService } from '../services/socket';
 
 export default function ActivityTimeline() {
   const [timeline, setTimeline] = useState<any[]>([]);
@@ -11,16 +12,28 @@ export default function ActivityTimeline() {
 
   useEffect(() => {
     if (!spaceId) return;
-    getSpaceOverview(spaceId)
-      .then(data => {
-        setTimeline(data.activityTimeline || []);
-        setStats(data.stats);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+    const loadOverview = () => {
+      getSpaceOverview(spaceId)
+        .then(data => {
+          setTimeline(data.activityTimeline || []);
+          setStats(data.stats);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setLoading(false);
+        });
+    };
+
+    loadOverview();
+
+    const unsubMessageCreated = socketService.on('message-created', loadOverview);
+    const unsubMessagesUpdated = socketService.on('messages-updated', loadOverview);
+
+    return () => {
+      unsubMessageCreated();
+      unsubMessagesUpdated();
+    };
   }, [spaceId]);
 
   if (loading) {

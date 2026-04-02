@@ -23,6 +23,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const { spaceId, userName } = getAuth();
+    if (screen === 'app' && spaceId && userName) {
+      socketService.connect(spaceId, userName);
+      return;
+    }
+
+    socketService.disconnect();
+  }, [screen]);
+
+  useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
 
     const handleLogout = () => {
