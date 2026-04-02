@@ -1,6 +1,15 @@
 import { io, Socket } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || window.location.origin;
+const API_URL = import.meta.env.VITE_API_URL as string | undefined;
+
+function normalizeUrl(value?: string) {
+  if (!value) return '';
+  return value.replace(/\/+$/, '');
+}
+
+const ENV_SOCKET_URL = normalizeUrl(import.meta.env.VITE_SOCKET_URL as string | undefined);
+const API_ORIGIN = API_URL && API_URL.startsWith('http') ? normalizeUrl(new URL(API_URL).origin) : '';
+const SOCKET_URL = ENV_SOCKET_URL || API_ORIGIN || normalizeUrl(window.location.origin);
 
 class SocketService {
   public socket: Socket | null = null;
@@ -20,9 +29,12 @@ class SocketService {
       this.socket.connect();
     } else {
       this.socket = io(SOCKET_URL, {
+        autoConnect: false,
         reconnectionDelayMax: 10000,
         transports: ['websocket', 'polling'], // Fallback
       });
+
+      this.socket.connect();
 
       this.socket.on('connect', () => {
         console.log('Socket connected', this.socket?.id);

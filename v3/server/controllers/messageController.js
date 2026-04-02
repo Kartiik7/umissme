@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
+import { randomUUID } from 'crypto';
 import Message from '../models/Message.js';
 import CoupleSpace from '../models/CoupleSpace.js';
 import Activity from '../models/Activity.js';
+import { publishChatMessage, publishMessageStatus, setMessageStatus } from '../pubsub/publisher.js';
+import { buildUserId } from '../pubsub/channels.js';
 
 // POST /api/messages/send
 export const sendMessage = async (req, res) => {
-  const { text } = req.body;
+  const { text, type = 'text' } = req.body;
   const spaceId = String(req.authorizedSpaceId || '').trim();
   const sender = String(req.authorizedUserName || '').trim();
 
@@ -32,7 +35,7 @@ export const sendMessage = async (req, res) => {
   }
 
   try {
-    const space = req.authorizedSpace || (await CoupleSpace.findById(spaceId).select('retentionHours').lean());
+    const space = req.authorizedSpace || (await CoupleSpace.findById(spaceId).select('retentionHours friendOneName friendTwoName').lean());
     if (!space) {
       return res.status(404).json({ message: 'Space not found' });
     }
@@ -44,6 +47,7 @@ export const sendMessage = async (req, res) => {
       spaceId,
       sender,
       text: trimmedText,
+      type,
       sent: true,
       delivered: false,
       expiresAt,
@@ -56,9 +60,46 @@ export const sendMessage = async (req, res) => {
       description: `${sender} sent a message`,
     });
 
-    const io = req.app.get('io');
-    if (io) {
-      io.to(spaceId).emit('messages-updated', { sender });
+    const receiver = normalizeMemberName(space.friendOneName, space.friendTwoName, sender);
+    const redisPublisher = req.app.get('redisPublisher');
+    const redisClient = req.app.get('redisClient');
+    const senderId = buildUserId(spaceId, sender);
+    const receiverId = receiver ? buildUserId(spaceId, receiver) : null;
+
+    if (redisPublisher && redisClient && receiver && receiverId) {
+      const sentAt = new Date().toISOString();
+
+      await setMessageStatus(redisClient, {
+        messageId: String(message._id),
+        sender,
+        receiver,
+        senderId,
+        receiverId,
+        status: 'sent',
+        updatedAt: sentAt,
+      });
+
+      await publishChatMessage(redisPublisher, {
+        eventId: `chat:${message._id}:${randomUUID()}`,
+        spaceId,
+        sender,
+        receiver,
+        senderId,
+        receiverId,
+        message,
+      });
+
+      await publishMessageStatus(redisPublisher, {
+        eventId: `status:sent:${message._id}:${randomUUID()}`,
+        spaceId,
+        messageId: String(message._id),
+        sender,
+        receiver,
+        senderId,
+        receiverId,
+        status: 'sent',
+        updatedAt: sentAt,
+      });
     }
 
     res.status(201).json(message);
@@ -101,30 +142,67 @@ export const markMessagesSeen = async (req, res) => {
   }
 
   try {
-    const result = await Message.updateMany(
+    const unreadMessages = await Message.find(
       {
         spaceId,
         sender: { $ne: sender },
         seen: false,
       },
-      {
-        seen: true,
-        seenAt: new Date(),
-        delivered: true,
-        deliveredAt: new Date(),
-      }
-    );
+      { _id: 1, sender: 1 }
+    ).lean();
 
-    const io = req.app.get('io');
-    if (io && result.modifiedCount > 0) {
-      io.to(spaceId).emit('messages-read', { reader: sender });
+    const seenAt = new Date();
+    const unreadIds = unreadMessages.map((entry) => entry._id);
+
+    if (unreadIds.length > 0) {
+      await Message.updateMany(
+        { _id: { $in: unreadIds } },
+        {
+          $set: {
+            seen: true,
+            seenAt,
+            delivered: true,
+            deliveredAt: seenAt,
+          },
+        }
+      );
+
+      const redisPublisher = req.app.get('redisPublisher');
+      if (redisPublisher) {
+        await Promise.all(
+          unreadMessages.map((message) =>
+            publishMessageStatus(redisPublisher, {
+              eventId: `status:seen:${message._id}:${randomUUID()}`,
+              spaceId,
+              messageId: String(message._id),
+              sender: message.sender,
+              receiver: sender,
+              senderId: buildUserId(spaceId, message.sender),
+              receiverId: buildUserId(spaceId, sender),
+              status: 'seen',
+              updatedAt: seenAt.toISOString(),
+            })
+          )
+        );
+      }
     }
 
-    res.json({ modifiedCount: result.modifiedCount });
+    res.json({ modifiedCount: unreadIds.length });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+function normalizeMemberName(friendOneName, friendTwoName, sender) {
+  const normalizedSender = String(sender || '').trim().toLowerCase();
+  if (String(friendOneName || '').trim().toLowerCase() === normalizedSender) {
+    return friendTwoName;
+  }
+  if (String(friendTwoName || '').trim().toLowerCase() === normalizedSender) {
+    return friendOneName;
+  }
+  return null;
+}
 
 // GET /api/messages/:spaceId/last
 export const getLastMessage = async (req, res) => {
