@@ -26,10 +26,11 @@ const CLIENT_DIST_PATH = path.resolve(__dirname, '../client/dist');
 const HAS_CLIENT_DIST = fs.existsSync(CLIENT_DIST_PATH);
 
 function buildAllowedOrigins() {
-  const fromEnv = String(CLIENT_URL)
+  const raw = process.env.CLIENT_URL || '';
+  const fromEnv = raw
     .split(',')
-    .map((value) => value.trim())
-    .filter(Boolean);
+    .map((v) => v.trim())
+    .filter((v) => v.startsWith('http'));
 
   // Always allow common local dev ports so websocket handshakes remain stable
   // when Vite falls back from 5173 to 5174.
@@ -100,7 +101,11 @@ const io = new Server(httpServer, {
   cors: {
     origin: ALLOWED_ORIGINS,
     methods: ['GET', 'POST'],
+    credentials: true,
   },
+  transports: ['websocket', 'polling'],
+  pingTimeout: 60000,
+  pingInterval: 25000,
 });
 app.set('io', io);
 
@@ -353,3 +358,10 @@ io.on('connection', (socket) => {
 httpServer.listen(PORT, () => {
   console.log(`pinglet server running on port ${PORT}`);
 });
+
+const RENDER_URL = process.env.RENDER_EXTERNAL_URL;
+if (RENDER_URL) {
+  setInterval(() => {
+    fetch(`${RENDER_URL}/api/health`).catch(() => {});
+  }, 10 * 60 * 1000);
+}

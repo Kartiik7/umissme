@@ -49,18 +49,17 @@ export const sendMessage = async (req, res) => {
       expiresAt,
     });
 
-    const io = req.app.get('io');
-    if (io) {
-      io.to(spaceId).emit('message-created', { message });
-      io.to(spaceId).emit('messages-updated', { sender });
-    }
-
     await Activity.create({
       spaceId,
       type: 'message',
       actor: sender,
       description: `${sender} sent a message`,
     });
+
+    const io = req.app.get('io');
+    if (io) {
+      io.to(spaceId).emit('messages-updated', { sender });
+    }
 
     res.status(201).json(message);
   } catch (error) {
