@@ -21,7 +21,7 @@ const ALL_VIBES = [
 
 const DEFAULT_VIBES = ALL_VIBES.slice(0, 5);
 
-export default function SanctuarySpace({ onBack }: { onBack: () => void }) {
+export default function SanctuarySpace({ onBack, onLogout }: { onBack: () => void, onLogout?: () => void }) {
   const [stats, setStats] = useState<any>(null);
   const [memories, setMemories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -68,8 +68,12 @@ export default function SanctuarySpace({ onBack }: { onBack: () => void }) {
   };
 
   const handleLeaveSpace = () => {
-    clearAuth();
-    onBack();
+    if (onLogout) {
+      onLogout();
+    } else {
+      clearAuth();
+      onBack();
+    }
   };
 
   const handleAddMemory = async (e: React.FormEvent) => {

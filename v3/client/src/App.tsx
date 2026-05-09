@@ -32,15 +32,15 @@ export default function App() {
     socketService.disconnect();
   }, [screen]);
 
+  const handleLogout = () => {
+    clearAuth();
+    socketService.disconnect();
+    setScreen('landing');
+    setActiveTab('messages'); // reset
+  };
+
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
-
-    const handleLogout = () => {
-      clearAuth();
-      socketService.disconnect();
-      setScreen('landing');
-      setActiveTab('messages'); // reset
-    };
 
     const resetTimer = () => {
       clearTimeout(timeout);
@@ -79,11 +79,11 @@ export default function App() {
       case 'messages':
         return <ChatScreen />;
       case 'memories':
-        return <SanctuarySpace onBack={() => setScreen('landing')} />;
+        return <SanctuarySpace onBack={() => setActiveTab('messages')} onLogout={handleLogout} />;
       case 'activity':
         return <ActivityTimeline />;
       case 'settings':
-        return <Settings onLogout={() => setScreen('landing')} />;
+        return <Settings onLogout={handleLogout} />;
       default:
         return <ChatScreen />;
     }
