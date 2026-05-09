@@ -1,0 +1,149 @@
+{
+  "personal": {
+    "name": "KARTIK",
+    "initials": "K",
+    "role": "Full Stack Developer",
+    "city": "Chandigarh University",
+    "tagline": "Dream Build Craft & Achieve",
+    "sub": "MERN Stack Developer focused on building practical, user-centric web applications. Clean code & solid fundamentals.",
+    "resume": "23BAI70520_Kartik (1).pdf",
+    "github": "kartiik7",
+    "linkedin": "kartik-patel03",
+    "email": "omprakashnarna1980@gmail.com",
+    "twitter": "#",
+    "stats": [
+      { "label": "Years coding", "count": 3, "suffix": "+" },
+      { "label": "Projects shipped", "count": 12, "suffix": "+" },
+      { "label": "Primary stack", "value": "MERN" },
+      { "label": "Coffee consumed", "value": "∞" }
+    ]
+  },
+  "skills": {
+    "marquee": ["React", "Node.js", "MongoDB", "Express", "TypeScript", "JavaScript", "HTML5", "CSS3", "Bootstrap", "Framer Motion", "GCP", "Firebase", "Docker", "GitHub", "Postman"],
+    "categories": [
+      {
+        "title": "Frontend",
+        "items": [
+          { "name": "React.js", "level": "Expert" },
+          { "name": "JavaScript", "level": "Expert" },
+          { "name": "TypeScript", "level": "Proficient" },
+          { "name": "Framer Motion", "level": "Proficient" },
+          { "name": "HTML / CSS", "level": "Expert" }
+        ]
+      },
+      {
+        "title": "Backend",
+        "items": [
+          { "name": "Node.js", "level": "Expert" },
+          { "name": "Express.js", "level": "Expert" },
+          { "name": "MongoDB", "level": "Expert" },
+          { "name": "MySQL", "level": "Proficient" },
+          { "name": "Firebase", "level": "Proficient" }
+        ]
+      },
+      {
+        "title": "Tools & Cloud",
+        "items": [
+          { "name": "GCP", "level": "Learning" },
+          { "name": "Docker", "level": "Learning" },
+          { "name": "Postman", "level": "Expert" },
+          { "name": "Git & GitHub", "level": "Expert" }
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "01",
+      "name": "StudyFlow",
+      "stack": "React · Node.js · MongoDB · Express · Chart.js",
+      "live": "https://studyflow.app",
+      "github": "kartiik7/studyflow",
+      "year": "2024",
+      "image": "https://raw.githubusercontent.com/Kartiik7/PortFolio-1/main/src/assets/projectsImg/1.png",
+      "desc": "A full-stack productivity platform featuring JWT auth, task management with priorities, and interactive progress charts."
+    },
+    {
+      "id": "02",
+      "name": "DishCraft",
+      "stack": "React · Node.js · Express · MongoDB",
+      "live": "https://dishcraft.com",
+      "github": "kartiik7/dishcraft",
+      "year": "2024",
+      "image": "https://raw.githubusercontent.com/Kartiik7/PortFolio-1/main/src/assets/projectsImg/2.png",
+      "desc": "Community-driven recipe sharing platform with AI recommendations, ingredient filtering, and a collaborative kitchen vibe."
+    },
+    {
+      "id": "03",
+      "name": "Student Management",
+      "stack": "MongoDB · Express · React · Node.js",
+      "live": "#",
+      "github": "kartiik7",
+      "year": "2023",
+      "image": "https://raw.githubusercontent.com/Kartiik7/PortFolio-1/main/src/assets/projectsImg/3.png",
+      "desc": "An administrative dashboard for educational institutions to manage student records, attendance, and performance analytics."
+    },
+    {
+      "id": "04",
+      "name": "Project Aurora",
+      "stack": "React · Framer Motion · CSS · TypeScript",
+      "live": "#",
+      "github": "kartiik7",
+      "year": "2023",
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuC1AMVeW6dD9Q8sjLEP_dyXElCCjBb2l4T7ryPLe66TicYCLtGXUZB1oLNRXj9_IieOR1EUuiuTDSHutvGA9mgT8DhV9--CfYifs_soBG0fQh5st2x3HycCD94QgZqr127pyMJLTfUMEGLFV80O7d5IXf4NoqECaPaI0d6DfYWV76FRYi0-4R4mOs3dVrrfqdAq0FSrKs3q7HcBzNM10Zguhg5Nk29VEK-mqwZS_vmZAjJxdVQ57Pec0T82zbj_LcUhW0z_We5twQ",
+      "desc": "A experimental design project focused on high-performance animations, fluid typography, and breaking traditional UI patterns."
+    },
+    {
+      "id": "05",
+      "name": "Data Canvas",
+      "stack": "Node.js · D3.js · PostgreSQL · Express",
+      "live": "#",
+      "github": "kartiik7",
+      "year": "2023",
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDXNtn2FZC3dYWdp7poPiX4KEnXAw2sD934aCzp_bmvhPNvF8RAr0Oq8VJzRrKnNzoo8qPbYhidT1a44N6oqCVHYDCRZwb-nEclGH1SX8YqaV-5fEOBM4V49rfGa3Yk3BzucjoHIBb-I51bTU2qkjcM579teCdXhSKyEcp3_jExuw7pLoIwu2MadjDGSq_JwkLjXug1-LjbEDfNiZxRagcL0kOM_vhqACkaoAvxr-mA9omYfKI3S9J1o80kLoqWXAPefBskgtRS4w",
+      "desc": "Advanced data visualization tool for analyzing complex datasets using D3.js and PostgreSQL backends."
+    }
+  ],
+  "profiles": [
+    {
+      "name": "GitHub",
+      "user": "@kartiik7",
+      "url": "https://github.com/kartiik7",
+      "bullets": ["Open Source Contributor", "Active Repositories"],
+      "color": "#fff",
+      "icon": "github"
+    },
+    {
+      "name": "LeetCode",
+      "user": "@ikartiikpatel",
+      "url": "https://leetcode.com/u/ikartiikpatel/",
+      "bullets": ["680+ problems solved", "Strong in Arrays, Graphs, DP"],
+      "color": "#FFA116",
+      "icon": "leetcode"
+    },
+    {
+      "name": "Codeforces",
+      "user": "@kartiiik7",
+      "url": "https://codeforces.com/profile/kartiiik7",
+      "bullets": ["Max Rating: 1100", "Regular contest participant"],
+      "color": "#1F8ACB",
+      "icon": "codeforces"
+    },
+    {
+      "name": "CodeChef",
+      "user": "@kartiik7",
+      "url": "https://www.codechef.com/users/kartiik7",
+      "bullets": ["2★ Coder", "Long + Starters contests"],
+      "color": "#D2691E",
+      "icon": "codechef"
+    },
+    {
+      "name": "LinkedIn",
+      "user": "Kartik Patel",
+      "url": "https://www.linkedin.com/in/kartik-patel03",
+      "bullets": ["Connecting & Learning", "Full Stack Developer"],
+      "color": "#0A66C2",
+      "icon": "linkedin"
+    }
+  ]
+}

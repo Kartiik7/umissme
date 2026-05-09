@@ -76,19 +76,21 @@ export default function LandingPage({ onStart }: { onStart: () => void }) {
           <div className="absolute bottom-40 right-10 w-80 h-80 bg-secondary rounded-full blur-3xl"></div>
         </div>
         
-        <div className="relative z-10 text-center px-6 pt-20 max-w-lg w-full">
+        <div className="relative z-10 text-center px-6 pt-20 max-w-2xl w-full">
           <motion.div 
-            initial={{ scale: 0, rotate: -10 }}
+            initial={{ scale: 0, rotate: -5 }}
             animate={{ scale: 1, rotate: -2 }}
-            className="inline-block px-6 py-2 bg-accent text-black font-bold rounded-full mb-8 shadow-xl border-2 border-black"
+            className="inline-flex items-center gap-2 px-6 py-2 bg-[#FFD600] text-black font-black rounded-full mb-8 shadow-[0_4px_0_#000] border-2 border-black transform -rotate-1"
           >
-            ✨ JOIN THE VIBE! ✨
+            <Sparkles size={18} className="text-black" />
+            <span className="uppercase tracking-wider text-sm">JOIN THE VIBE!</span>
+            <Sparkles size={18} className="text-black" />
           </motion.div>
           
           <motion.h1 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="text-7xl md:text-9xl text-white font-fredoka drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)] mb-6"
+            className="text-8xl md:text-[10rem] text-white font-fredoka mb-6 drop-shadow-[0_8px_15px_rgba(0,0,0,0.25)] tracking-tight"
           >
             Pinglet
           </motion.h1>
@@ -102,19 +104,19 @@ export default function LandingPage({ onStart }: { onStart: () => void }) {
                 exit={{ opacity: 0, scale: 0.9 }}
                 className="space-y-8"
               >
-                <p className="text-xl md:text-2xl text-white font-bold leading-tight drop-shadow-md">
-                  Find <span className="text-accent">fun connections</span>, share laughs, and start <span className="underline decoration-secondary decoration-4">building your crew</span> today!
+                <p className="text-2xl md:text-3xl text-white font-bold leading-tight drop-shadow-md mb-12">
+                  Find <span className="text-[#FFD600]">fun connections</span>, share laughs, and start <span className="underline decoration-[#00E5FF] decoration-4 underline-offset-4">building your crew</span> today!
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                   <button 
                     onClick={() => setView('create')}
-                    className="w-full sm:w-auto px-10 py-5 bg-white text-primary rounded-full font-black text-2xl shadow-[0_10px_0_rgba(255,61,188,0.3)] hover:shadow-[0_5px_0_rgba(255,61,188,0.3)] active:translate-y-1 transition-all"
+                    className="w-full sm:w-auto px-12 py-5 bg-white text-[#FF3DBC] rounded-full font-black text-2xl shadow-[0_8px_0_rgba(255,61,188,0.4)] hover:shadow-[0_4px_0_rgba(255,61,188,0.4)] hover:translate-y-1 active:translate-y-2 transition-all border-2 border-transparent"
                   >
                     Create Space
                   </button>
                   <button 
                     onClick={() => setView('join')}
-                    className="w-full sm:w-auto px-10 py-5 bg-secondary text-black rounded-full font-black text-2xl shadow-[0_10px_0_rgba(0,229,255,0.3)] hover:shadow-[0_5px_0_rgba(0,229,255,0.3)] active:translate-y-1 transition-all"
+                    className="w-full sm:w-auto px-12 py-5 bg-[#00E5FF] text-black rounded-full font-black text-2xl shadow-[0_8px_0_rgba(0,184,204,0.4)] hover:shadow-[0_4px_0_rgba(0,184,204,0.4)] hover:translate-y-1 active:translate-y-2 transition-all border-2 border-transparent"
                   >
                     Join Space
                   </button>
@@ -255,18 +257,54 @@ export default function LandingPage({ onStart }: { onStart: () => void }) {
 
         {view === 'home' && (
           <>
-            <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 3, repeat: Infinity }} className="absolute top-1/4 left-10 text-6xl hidden lg:block">🚀</motion.div>
-            <motion.div animate={{ y: [0, -15, 0] }} transition={{ duration: 3, repeat: Infinity, delay: 1 }} className="absolute bottom-1/4 right-20 text-7xl hidden lg:block">💖</motion.div>
+            <motion.div 
+              animate={{ 
+                y: [0, -20, 0],
+                rotate: [-2, 2, -2]
+              }} 
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} 
+              className="absolute top-20 left-[10%] text-7xl hidden lg:block drop-shadow-2xl"
+            >
+              🚀
+            </motion.div>
+            <motion.div 
+              animate={{ 
+                y: [0, 15, 0],
+                rotate: [5, -5, 5]
+              }} 
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }} 
+              className="absolute top-1/2 right-[8%] text-8xl hidden lg:block drop-shadow-xl"
+            >
+              💖
+            </motion.div>
           </>
         )}
       </section>
 
-      {/* Features Section */}
-      <section className="px-6 pb-24 relative z-20 -mt-20">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <FeatureCard icon={<MessageCircle className="text-primary" size={40} />} title="Sharing Laughs" description="Send high-five memes, voice notes, and weird stickers. No boring texts allowed!" color="primary" shadowColor="#FF3DBC" image="https://picsum.photos/seed/chat/400/300" />
-          <FeatureCard icon={<Rocket className="text-accent" size={40} />} title="Fast Pings" description={'Send a nudge to say "I\'m here!" with one tap. Fast, fun, and totally effortless.'} color="accent" shadowColor="#FFD600" isMiddle image="https://picsum.photos/seed/rocket/400/300" />
-          <FeatureCard icon={<Sparkles className="text-secondary" size={40} />} title="Crew Memories" description="A colorful vault for all your squad goals and epic late-night photos." color="secondary" shadowColor="#00E5FF" image="https://picsum.photos/seed/memories/400/300" />
+      <section className="px-6 pb-24 relative z-20 -mt-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+          <FeatureCard 
+            icon={<MessageCircle size={44} />} 
+            title="Sharing Laughs" 
+            description="Send high-five memes, voice notes, and weird stickers. No boring texts allowed!" 
+            color="pink" 
+            image="https://picsum.photos/seed/chat/600/400" 
+          />
+          <FeatureCard 
+            icon={<Rocket size={44} />} 
+            title="Fast Pings" 
+            description={'Send a nudge to say "I\'m here!" with one tap. Fast, fun, and totally effortless.'} 
+            color="yellow" 
+            isMiddle 
+            image="https://picsum.photos/seed/rocket/600/400" 
+          />
+          <FeatureCard 
+            icon={<Sparkles size={44} />} 
+            title="Crew Memories" 
+            description="A colorful vault for all your squad goals and epic late-night photos." 
+            color="cyan" 
+            image="https://picsum.photos/seed/memories/600/400" 
+          />
         </div>
       </section>
 
@@ -280,35 +318,40 @@ export default function LandingPage({ onStart }: { onStart: () => void }) {
   );
 }
 
-function FeatureCard({ icon, title, description, color, shadowColor, isMiddle, image }: any) {
-  const colorStyles = {
-    primary: {
-      text: 'text-primary',
-      bgLight: 'bg-primary/20',
-      bgSuperLight: 'bg-primary/10',
-      borderLight: 'border-primary/20'
+function FeatureCard({ icon, title, description, color, isMiddle, image }: any) {
+  const themes = {
+    pink: {
+      text: 'text-[#FF3DBC]',
+      bg: 'bg-[#FF3DBC]/10',
+      icon: 'text-[#FF3DBC]',
+      shadow: 'shadow-[12px_12px_0px_#FF3DBC]'
     },
-    secondary: {
-      text: 'text-secondary',
-      bgLight: 'bg-secondary/20',
-      bgSuperLight: 'bg-secondary/10',
-      borderLight: 'border-secondary/20'
+    yellow: {
+      text: 'text-[#E6B800]',
+      bg: 'bg-[#FFD600]/20',
+      icon: 'text-[#E6B800]',
+      shadow: 'shadow-[12px_12px_0px_#FFD600]'
     },
-    accent: {
-      text: 'text-accent',
-      bgLight: 'bg-accent/20',
-      bgSuperLight: 'bg-accent/10',
-      borderLight: 'border-accent/20'
+    cyan: {
+      text: 'text-[#00B8CC]',
+      bg: 'bg-[#00E5FF]/10',
+      icon: 'text-[#00B8CC]',
+      shadow: 'shadow-[12px_12px_0px_#00E5FF]'
     }
-  }[color as 'primary' | 'secondary' | 'accent'] || { text: '', bgLight: '', bgSuperLight: '', borderLight: '' };
+  }[color as 'pink' | 'yellow' | 'cyan'];
 
   return (
-    <motion.div whileHover={{ rotate: isMiddle ? 2 : -2 }} className={`group bg-white p-6 sm:p-10 rounded-[3rem] border-4 border-black transition-all ${isMiddle ? 'md:mt-12' : ''}`} style={{ boxShadow: `10px 10px 0px ${shadowColor}` }}>
-      <div className={`w-16 h-16 sm:w-20 sm:h-20 ${colorStyles.bgLight} rounded-3xl flex items-center justify-center mb-6 sm:mb-8 rotate-3 group-hover:rotate-6 transition-transform`}>{icon}</div>
-      <h3 className={`text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 ${colorStyles.text}`}>{title}</h3>
-      <p className="text-lg sm:text-xl font-bold text-gray-600 mb-6 sm:mb-8">{description}</p>
-      <div className={`rounded-[2rem] overflow-hidden border-4 ${colorStyles.borderLight} ${colorStyles.bgSuperLight} p-3 sm:p-4`}>
-        <img src={image} alt={title} className="w-full h-40 sm:h-48 object-cover rounded-xl" referrerPolicy="no-referrer" />
+    <motion.div 
+      whileHover={{ y: -5, rotate: isMiddle ? 1 : -1 }} 
+      className={`group bg-white p-8 sm:p-10 rounded-[3rem] border-4 border-black transition-all ${isMiddle ? 'md:mt-12' : ''} ${themes.shadow}`}
+    >
+      <div className={`w-20 h-20 ${themes.bg} rounded-3xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-6 transition-transform`}>
+        <div className={themes.icon}>{icon}</div>
+      </div>
+      <h3 className={`text-3xl font-bold mb-4 ${themes.text}`}>{title}</h3>
+      <p className="text-xl font-bold text-gray-500 mb-8 leading-snug">{description}</p>
+      <div className="rounded-[2rem] overflow-hidden border-4 border-black/5 bg-gray-50 p-2">
+        <img src={image} alt={title} className="w-full h-48 object-cover rounded-2xl grayscale-[0.2] group-hover:grayscale-0 transition-all" referrerPolicy="no-referrer" />
       </div>
     </motion.div>
   );

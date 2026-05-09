@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import connectDB from './config/db.js';
-import { connectRedis, disconnectRedis, redisPublisher, redisSubscriber, redisClient } from './config/redis.js';
+import { connectRedis, disconnectRedis, registerRedisShutdown, redisPublisher, redisSubscriber, redisClient } from './config/redis.js';
 import spaceRoutes from './routes/spaceRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import healthRoutes from './routes/healthRoutes.js';
@@ -125,8 +125,9 @@ const io = new Server(httpServer, {
 });
 app.set('io', io);
 
-const redisAdapterPub = redisClient.duplicate();
-const redisAdapterSub = redisClient.duplicate();
+// Adapter clients are created inside bootstrap() after redisClient is confirmed ready.
+let redisAdapterPub;
+let redisAdapterSub;
 
 async function clearStalePresenceKeys() {
   await redisClient.del(REDIS_KEYS.ONLINE_USERS, REDIS_KEYS.ONLINE_USERS_HASH, REDIS_KEYS.USER_SOCKET_COUNT_HASH);
@@ -153,7 +154,13 @@ async function clearStalePresenceKeys() {
 async function bootstrap() {
   await connectDB();
   await connectRedis();
+
+  // Create adapter clients AFTER base clients are connected so .duplicate()
+  // inherits a confirmed-ready connection config.
+  redisAdapterPub = redisClient.duplicate();
+  redisAdapterSub = redisClient.duplicate();
   await Promise.all([redisAdapterPub.connect(), redisAdapterSub.connect()]);
+
   app.set('redisPublisher', redisPublisher);
   app.set('redisClient', redisClient);
 
@@ -176,11 +183,18 @@ async function bootstrap() {
   httpServer.listen(PORT, () => {
     console.log(`pinglet server running on port ${PORT}`);
   });
+
+  // Register SIGTERM / SIGINT handlers for graceful shutdown.
+  // Must be called after httpServer is created.
+  registerRedisShutdown(httpServer);
 }
 
 bootstrap().catch(async (error) => {
   console.error('server bootstrap failed:', error.message);
-  await Promise.allSettled([redisAdapterPub.quit(), redisAdapterSub.quit()]);
+  await Promise.allSettled([
+    redisAdapterPub?.quit(),
+    redisAdapterSub?.quit(),
+  ]);
   await disconnectRedis();
   process.exit(1);
 });

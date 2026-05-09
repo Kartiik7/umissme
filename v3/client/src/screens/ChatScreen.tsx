@@ -258,8 +258,17 @@ export default function ChatScreen() {
             {isPartnerOnline ? (
               <p className="text-xs font-bold text-green-500 uppercase tracking-wider">● Online</p>
             ) : (
-              <p className="text-xs font-bold text-gray-400">
-                {partnerLastSeen ? `Last seen ${partnerLastSeen.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : '● Offline'}
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                {partnerLastSeen ? (
+                  <>
+                    <span className="text-[10px] mr-1">●</span>
+                    Last seen {
+                      partnerLastSeen.toDateString() === new Date().toDateString()
+                        ? partnerLastSeen.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        : partnerLastSeen.toLocaleDateString([], { month: 'short', day: 'numeric' })
+                    }
+                  </>
+                ) : '● Offline'}
               </p>
             )}
           </div>
