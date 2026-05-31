@@ -110,21 +110,16 @@ async function upsertSocketSession(redisClient, socket, spaceId, userName) {
   const userId = buildUserId(spaceId, userName);
   socket.data.session = { spaceId, userName, userId };
   const nowIso = new Date().toISOString();
-  const presencePayload = JSON.stringify({
-    userId,
-    spaceId,
-    userName,
-    lastSeen: null,
-    updatedAt: nowIso,
-  });
 
+  // Remove the online users hash set; only update relevant sets and counts.
   await redisClient.multi()
     .set(socketUserKey(socket.id), userId, 'EX', 60 * 60 * 24)
     .sadd(userSocketsKey(userId), socket.id)
     .expire(userSocketsKey(userId), 60 * 60 * 24)
     .hincrby(REDIS_KEYS.USER_SOCKET_COUNT_HASH, userId, 1)
     .sadd(REDIS_KEYS.ONLINE_USERS, userId)
-    .hset(REDIS_KEYS.ONLINE_USERS_HASH, userId, presencePayload)
+    // Add to space-specific online set
+    .sadd(`space_online:${spaceId}`, userName)
     .exec();
 
   return userId;
@@ -174,41 +169,23 @@ async function markPendingDelivered(redisPublisher, spaceId, userName, partnerNa
   );
 }
 
-async function emitOnlineUsers(io, redisClient, spaceId) {
-  const onlineUsersMap = await redisClient.hgetall(REDIS_KEYS.ONLINE_USERS_HASH);
-  const users = Object.entries(onlineUsersMap)
-    .filter(([_userId, serialized]) => {
-      try {
-        const payload = JSON.parse(serialized);
-        return payload?.spaceId === spaceId;
-      } catch (_error) {
-        return false;
-      }
-    })
-    .map(([userId]) => userId);
+// === REDIS PRESENCE SCALING: SPACE-SPECIFIC ONLINE SETS ===
 
+async function emitOnlineUsers(io, redisClient, spaceId) {
+  // Efficiently fetch only users for this space
+  const users = await redisClient.smembers(`space_online:${spaceId}`);
   io.to(spaceId).emit('online_users', { users });
 }
 
 async function emitPresenceState(io, redisClient, spaceId, excludeUserName = '') {
-  const [onlineUsersMap, lastSeenList] = await Promise.all([
-    redisClient.hgetall(REDIS_KEYS.ONLINE_USERS_HASH),
-    buildLastSeenList(redisClient, spaceId),
-  ]);
-
+  // Fetch directly from space-specific online set
+  const onlineRaw = await redisClient.smembers(`space_online:${spaceId}`);
   const exclude = normalizeName(excludeUserName);
-  const online = Object.values(onlineUsersMap)
-    .map((serialized) => {
-      try {
-        return JSON.parse(serialized);
-      } catch (_error) {
-        return null;
-      }
-    })
-    .filter((entry) => entry && entry.spaceId === spaceId)
-    .map((entry) => normalizeName(entry.userName))
-    .filter((name) => name && name !== exclude);
+  const online = onlineRaw
+    .filter((name) => normalizeName(name) && normalizeName(name) !== exclude)
+    .map((name) => normalizeName(name));
 
+  const lastSeenList = await buildLastSeenList(redisClient, spaceId);
   const lastSeen = lastSeenList
     .filter((entry) => normalizeName(entry.userName) !== exclude)
     .map((entry) => ({
@@ -335,7 +312,8 @@ export function setupSocket({ io, redisPublisher, redisClient }) {
         const lastSeen = new Date();
         await redisClient.multi()
           .srem(REDIS_KEYS.ONLINE_USERS, userId)
-          .hdel(REDIS_KEYS.ONLINE_USERS_HASH, userId)
+          // Remove from space-specific online set
+          .srem(`space_online:${spaceId}`, userName)
           .hdel(REDIS_KEYS.USER_SOCKET_COUNT_HASH, userId)
           .exec();
         await persistLastSeen(redisClient, spaceId, userName, lastSeen);
