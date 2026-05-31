@@ -38,7 +38,7 @@ async function getSpaceMembers(redisPublisher, spaceId) {
   return payload;
 }
 
-async function persistLastSeen(spaceId, userName, lastSeenAt) {
+async function persistLastSeen(redisClient, spaceId, userName, lastSeenAt) {
   const space = await CoupleSpace.findById(spaceId)
     .select('friendOneName friendTwoName')
     .lean();
@@ -55,6 +55,8 @@ async function persistLastSeen(spaceId, userName, lastSeenAt) {
   if (!update) return;
 
   await CoupleSpace.findByIdAndUpdate(spaceId, { $set: update });
+  
+  await redisClient.del(spaceMembersKey(spaceId));
 }
 
 async function buildLastSeenList(redisPublisher, spaceId) {
