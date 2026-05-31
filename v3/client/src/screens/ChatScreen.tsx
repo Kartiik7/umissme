@@ -17,6 +17,7 @@ export default function ChatScreen() {
   const [copiedId, setCopiedId] = useState(false);
   const [isPartnerOnline, setIsPartnerOnline] = useState(false);
   const [partnerLastSeen, setPartnerLastSeen] = useState<Date | null>(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Emoji Picker State
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasJoinedRef = useRef(false);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -288,7 +289,7 @@ export default function ChatScreen() {
             <h3 className="font-black text-lg">Space Info</h3>
             <div className="flex justify-between items-center">
               <span className="text-xs font-black uppercase tracking-widest text-gray-400">Space ID</span>
-              <button onClick={() => { navigator.clipboard.writeText(spaceId || ''); setCopiedId(true); setTimeout(() => setCopiedId(false), 2000); }} className="flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">
+              <button onClick={() => { navigator.clipboard.writeText(spaceId || ''); setCopiedId(true); setTimeout(() => setCopiedId(false), 2000); }} className="flex items-center gap-1.5 text-xs rounded-xl py-1.5 px-3 shadow border-2 border-black bg-gray-100">
                 {copiedId ? <><Check size={12} /> Copied</> : <><Copy size={12} /> Copy</>}
               </button>
             </div>
@@ -367,9 +368,32 @@ export default function ChatScreen() {
       </main>
 
       {/* Input Area */}
-      <div className="fixed bottom-[88px] left-0 w-full px-4 bg-transparent z-40">
+      <div className="fixed bottom-[88px] left-0 w-full px-4 bg-transparent z-40 relative">
+        {/* Add this Emoji Picker popup */}
+        {showEmojiPicker && (
+          <div className="absolute bottom-full mb-2 left-4 bg-white border-4 border-black shadow-[4px_4px_0_#000] p-3 rounded-2xl flex gap-2 z-50">
+            {['😀', '😂', '😍', '🔥', '✨', '😢', '👍', '❤️'].map(emoji => (
+              <button 
+                key={emoji} 
+                type="button" 
+                onClick={() => {
+                  setInput(prev => prev + emoji);
+                  setShowEmojiPicker(false);
+                }}
+                className="text-2xl hover:scale-125 transition-transform"
+              >
+                {emoji}
+              </button>
+            ))}
+          </div>
+        )}
+
         <form onSubmit={handleSend} className="bg-white p-2 rounded-2xl flex items-center gap-2 border-4 border-black shadow-[4px_4px_0_#000]">
-          <button type="button" className="p-3 bg-gray-100 rounded-xl hover:bg-accent hover:text-black transition-colors text-lg">
+          <button 
+            type="button" 
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)} // Add onClick here
+            className="p-3 bg-gray-100 rounded-xl hover:bg-accent hover:text-black transition-colors text-lg"
+          >
             😊
           </button>
           <input
@@ -398,3 +422,4 @@ export default function ChatScreen() {
     </div>
   );
 }
+
