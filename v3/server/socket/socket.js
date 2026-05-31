@@ -338,7 +338,7 @@ export function setupSocket({ io, redisPublisher, redisClient }) {
           .hdel(REDIS_KEYS.ONLINE_USERS_HASH, userId)
           .hdel(REDIS_KEYS.USER_SOCKET_COUNT_HASH, userId)
           .exec();
-        await persistLastSeen(spaceId, userName, lastSeen);
+        await persistLastSeen(redisClient, spaceId, userName, lastSeen);
 
         io.to(spaceId).emit('user_status', {
           userId,
